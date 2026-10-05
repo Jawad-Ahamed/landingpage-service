@@ -1,0 +1,34 @@
+<!doctype html>
+<!-- END · 5.0s · lockup → "Stop Switching Tabs. / Let Private AI Work." → white CTA → dips to black (the loop restarts on the intro) -->
+<html lang="en"><head><meta charset="utf-8"><link rel="stylesheet" href="card.css">
+<style>
+  .lockup { height: 92px; margin-bottom: 52px; --at: .3s; --from-s: .95; }
+  .title { font-size: 120px; }
+  .title .ln { display: block; }
+  .cta { margin-top: 64px; display: flex; flex-direction: column; align-items: center; gap: 26px; }
+  .url { font-size: 30px; font-weight: 500; color: #9DB2FF; letter-spacing: .02em; }
+  .horizon { animation: rise 1.6s cubic-bezier(.22, 1, .36, 1) 0s both; }
+  @keyframes rise { from { opacity: 0; transform: translateX(-50%) translateY(16%); } to { opacity: 1; transform: translateX(-50%) translateY(0); } }
+  .copy { animation: settle 5s linear both; }
+  @keyframes settle { from { transform: scale(1); } to { transform: scale(1.03); } }
+</style></head>
+<body data-duration="5.0">
+<div class="stage">
+  <div class="ground"></div>
+  <div class="horizon"></div>
+  <div class="copy">
+    <div class="lockup in"><img src="../../assets/brand/metawurks-mark-dark.png" alt=""><img src="../../assets/brand/metawurks-wordmark-dark.png" alt=""></div>
+    <div class="title">
+      <span class="ln in" style="--at:.75s">Stop Switching Tabs.</span>
+      <span class="ln in hl" style="--at:.95s">Let Private AI Work.</span>
+    </div>
+    <div class="cta">
+      <span class="btn in" style="--at:1.6s">Book your 1:1 call <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      <span class="url in" style="--at:1.85s">metawurks.com</span>
+    </div>
+  </div>
+  <div class="sweep" style="--sat:1.9s"></div>
+  <div class="grain"></div>
+  <div class="toBlack" style="--bat:4.5s; --bd:.5s"></div>
+</div>
+</body></html>

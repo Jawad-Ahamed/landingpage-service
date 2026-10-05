@@ -1,0 +1,16 @@
+# OS / editor
+.DS_Store
+.claude/
+
+# Vercel (local link + pulled env/token)
+.vercel
+.env*
+
+# Video pipeline: dependencies and regenerable build outputs (rebuild with video/build_video.sh)
+video/node_modules/
+video/build/
+
+# Licensed music: BlueTreeAudio's terms don't allow redistributing the track, so it isn't committed.
+# Put "Corporate Motivational (without piano melody).wav" here to rebuild the soundtrack.
+video/audio/music/*.wav
+video/audio/music/*.mp3

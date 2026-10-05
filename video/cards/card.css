@@ -1,0 +1,82 @@
+/* MetaWurks walkthrough title cards — rendered to 1920x1080 frames by video/render_cards.py.
+   Every animation is a CSS animation; the renderer pauses them and seeks frame by frame, so all
+   timing lives here (delays + durations, in seconds). Palette = the site's aurora ink panels. */
+@import url("https://fonts.googleapis.com/css2?family=Geist:wght@400..800&display=block");
+
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; width: 1920px; height: 1080px; overflow: hidden; background: #05070F; }
+body { font-family: "Geist", system-ui, sans-serif; color: #fff; -webkit-font-smoothing: antialiased; }
+
+.stage { position: absolute; inset: 0; overflow: hidden; display: grid; place-items: center; }
+
+/* deep navy ground with a slow cobalt / teal / violet aurora */
+.ground {
+  position: absolute; inset: -4%;
+  background:
+    radial-gradient(60% 70% at 18% 12%, rgba(58, 86, 204, .55) 0%, rgba(58, 86, 204, 0) 62%),
+    radial-gradient(50% 60% at 88% 22%, rgba(139, 108, 255, .30) 0%, rgba(139, 108, 255, 0) 62%),
+    radial-gradient(55% 60% at 70% 95%, rgba(25, 181, 176, .22) 0%, rgba(25, 181, 176, 0) 62%),
+    linear-gradient(160deg, #16245A 0%, #0C1736 52%, #070E24 100%);
+  animation: drift 6s cubic-bezier(.45, 0, .55, 1) both;
+}
+@keyframes drift { from { transform: scale(1.06) translate3d(-1%, -1%, 0); } to { transform: scale(1) translate3d(1%, .5%, 0); } }
+
+/* Juno-style horizon: a glowing arc rising from the bottom edge */
+.horizon {
+  position: absolute; left: 50%; bottom: -100%; width: 170%; aspect-ratio: 2.4 / 1; transform: translateX(-50%);
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(157, 178, 255, .0) 86%, rgba(157, 178, 255, .55) 93%, rgba(76, 214, 205, .35) 96%, rgba(0, 0, 0, 0) 100%);
+  filter: blur(14px);
+}
+.horizon::before { /* the soft light pooling above the arc */
+  content: ""; position: absolute; inset: -18% 10% 40%; border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(58, 86, 204, .55), rgba(58, 86, 204, 0));
+  filter: blur(40px);
+}
+
+/* fine grain stops gradient banding after h264 compression */
+.grain {
+  position: absolute; inset: 0; opacity: .06; mix-blend-mode: overlay; pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.copy { position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; text-align: center; }
+.lockup { display: flex; align-items: center; gap: 22px; }
+.lockup img { display: block; height: 100%; width: auto; }
+.label { font-size: 26px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: #9DB2FF; }
+.title { font-weight: 700; letter-spacing: -.045em; line-height: 1.02; }
+.hl { color: #9DB2FF; }
+.sub { font-weight: 500; color: #C9D3EA; letter-spacing: -.01em; }
+
+/* the reveal used everywhere: rise + un-blur */
+.in { opacity: 0; animation: blurIn var(--d, .9s) cubic-bezier(.22, 1, .36, 1) var(--at, 0s) both; }
+@keyframes blurIn { from { opacity: 0; transform: translateY(var(--rise, 26px)) scale(var(--from-s, 1)); filter: blur(var(--blur, 14px)); } to { opacity: 1; transform: none; filter: blur(0); } }
+.out { animation: blurOut var(--od, .6s) cubic-bezier(.55, 0, .45, 1) var(--oat, 0s) forwards; }
+@keyframes blurOut { to { opacity: 0; transform: translateY(-18px); filter: blur(12px); } }
+/* an element that both enters and leaves */
+.inout { opacity: 0; animation: blurIn var(--d, .9s) cubic-bezier(.22, 1, .36, 1) var(--at, 0s) both, blurOut var(--od, .6s) cubic-bezier(.55, 0, .45, 1) var(--oat, 2s) forwards; }
+
+/* light blooming up out of the horizon until the frame is white: hands over to the white footage */
+.bloom { position: absolute; left: 50%; top: 100%; width: 190%; aspect-ratio: 2.4 / 1; z-index: 4; border-radius: 50%; transform: translate(-50%, -50%) scale(.22, .06); transform-origin: 50% 50%; opacity: 0;
+  background: radial-gradient(closest-side, #FFFFFF 0%, #FFFFFF 50%, rgba(233, 238, 255, .85) 66%, rgba(157, 178, 255, 0) 100%);
+  animation: bloom var(--bd, .9s) cubic-bezier(.55, 0, .3, 1) var(--bat, 0s) forwards; }
+@keyframes bloom { 0% { opacity: 0; } 15% { opacity: 1; } 100% { opacity: 1; transform: translate(-50%, -50%) scale(1.6, 3.4); } }
+/* white flash used to hand over to the white product footage */
+.toWhite { position: absolute; inset: 0; z-index: 5; background: #fff; opacity: 0; animation: toWhite var(--wd, .7s) cubic-bezier(.65, 0, .35, 1) var(--wat, 0s) forwards; }
+@keyframes toWhite { to { opacity: 1; } }
+.toBlack { position: absolute; inset: 0; z-index: 5; background: #05070F; opacity: 0; animation: toWhite var(--bd, .5s) linear var(--bat, 0s) forwards; }
+.fromBlack { position: absolute; inset: 0; z-index: 5; background: #05070F; animation: fromBlack .7s cubic-bezier(.4, 0, .2, 1) both; }
+@keyframes fromBlack { to { opacity: 0; } }
+
+/* light sweep across text */
+.sweep { position: absolute; inset: 0; z-index: 3; pointer-events: none; background: linear-gradient(105deg, transparent 38%, rgba(255, 255, 255, .16) 50%, transparent 62%); transform: translateX(-100%); animation: sweep 1.1s cubic-bezier(.45, 0, .55, 1) var(--sat, 0s) forwards; }
+@keyframes sweep { to { transform: translateX(100%); } }
+
+/* glass chips (mid card) */
+.chips { display: flex; gap: 22px; }
+.chip { display: inline-flex; align-items: center; gap: 14px; padding: 18px 30px 18px 24px; border-radius: 999px; font-size: 34px; font-weight: 600; letter-spacing: -.01em;
+  background: rgba(255, 255, 255, .07); border: 1px solid rgba(157, 178, 255, .32); box-shadow: inset 0 1px 0 rgba(255, 255, 255, .1), 0 18px 40px -20px rgba(0, 0, 0, .6); }
+.chip i { width: 14px; height: 14px; border-radius: 50%; background: var(--c); box-shadow: 0 0 18px var(--c); }
+
+.btn { display: inline-flex; align-items: center; gap: 16px; padding: 26px 44px; border-radius: 18px; background: #fff; color: #0E1B33; font-size: 36px; font-weight: 600; letter-spacing: -.01em; box-shadow: 0 18px 50px -16px rgba(124, 151, 255, .8); }
+.btn svg { width: 30px; height: 30px; }

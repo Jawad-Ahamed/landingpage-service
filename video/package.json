@@ -1,0 +1,13 @@
+{
+  "name": "metawurks-video-cards",
+  "private": true,
+  "description": "Renders the walkthrough title cards (cards/*.html) to frames and builds the website video",
+  "scripts": {
+    "stills": "node render_cards.mjs --stills",
+    "render": "node render_cards.mjs",
+    "build": "node render_cards.mjs && bash build_video.sh"
+  },
+  "dependencies": {
+    "playwright-core": "1.63.0"
+  }
+}

@@ -1,0 +1,36 @@
+<!doctype html>
+<!-- MID · 3.0s · between "Ask your documents" and the agent runs: "Now watch the agents work." + three verticals -->
+<html lang="en"><head><meta charset="utf-8"><link rel="stylesheet" href="card.css">
+<style>
+  .label { margin-bottom: 30px; --at: .25s; }
+  .title { font-size: 112px; }
+  .title .w { display: inline-block; }
+  .chips { margin-top: 64px; }
+  .horizon { animation: rise 1.4s cubic-bezier(.22, 1, .36, 1) 0s both; }
+  @keyframes rise { from { opacity: 0; transform: translateX(-50%) translateY(14%); } to { opacity: .9; transform: translateX(-50%) translateY(0); } }
+  .copy { animation: settle 3s linear both, leave .5s cubic-bezier(.55, 0, .45, 1) 2.45s forwards; }
+  @keyframes settle { from { transform: scale(1); } to { transform: scale(1.03); } }
+  @keyframes leave { to { opacity: 0; filter: blur(14px); transform: scale(1.06); } }
+</style></head>
+<body data-duration="3.0">
+<div class="stage">
+  <div class="ground"></div>
+  <div class="horizon"></div>
+  <div class="copy">
+    <div class="label in">Agents &amp; skills</div>
+    <div class="title">
+      <span class="w in" style="--at:.4s">Now watch the</span>
+      <span class="w in hl" style="--at:.6s">agents work.</span>
+    </div>
+    <div class="chips">
+      <span class="chip in" style="--at:1.05s; --c:#4CC192"><i></i>Tax prep</span>
+      <span class="chip in" style="--at:1.2s; --c:#EFA3B0"><i></i>Case files</span>
+      <span class="chip in" style="--at:1.35s; --c:#5FD4C6"><i></i>Prior auth</span>
+    </div>
+  </div>
+  <div class="sweep" style="--sat:1.3s"></div>
+  <div class="grain"></div>
+  <div class="bloom" style="--bat:2.25s; --bd:.6s"></div>
+  <div class="toWhite" style="--wat:2.8s; --wd:.15s"></div>
+</div>
+</body></html>

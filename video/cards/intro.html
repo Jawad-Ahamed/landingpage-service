@@ -1,0 +1,34 @@
+<!doctype html>
+<!-- INTRO · 4.4s · "Meet" → MetaWurks lockup → tagline → glow floods to white (hands over to the white footage) -->
+<html lang="en"><head><meta charset="utf-8"><link rel="stylesheet" href="card.css">
+<style>
+  .lockup { height: 210px; --at: .95s; --d: 1.1s; --from-s: .94; --blur: 22px; --rise: 10px; }
+  .meet { font-size: 44px; font-weight: 500; letter-spacing: .02em; color: #C9D3EA; margin-bottom: 34px; --at: .45s; --oat: 2.15s; }
+  .tag { margin-top: 46px; font-size: 54px; font-weight: 600; letter-spacing: -.025em; line-height: 1.15; }
+  .tag .w { display: inline-block; }
+  .horizon { opacity: 0; animation: rise 1.6s cubic-bezier(.22, 1, .36, 1) .15s forwards, swell 1.2s cubic-bezier(.65, 0, .35, 1) 3.2s forwards; }
+  @keyframes rise { from { opacity: 0; transform: translateX(-50%) translateY(18%); } to { opacity: 1; transform: translateX(-50%) translateY(0); } }
+  @keyframes swell { to { transform: translateX(-50%) translateY(-34%) scale(1.25); filter: blur(30px); } }
+  .copy { animation: settle 4.4s linear both; }
+  @keyframes settle { from { transform: scale(1); } to { transform: scale(1.035); } }
+</style></head>
+<body data-duration="4.4">
+<div class="stage">
+  <div class="ground"></div>
+  <div class="horizon"></div>
+  <div class="copy">
+    <div class="meet inout">Meet</div>
+    <div class="lockup in"><img src="../../assets/brand/metawurks-mark-dark.png" alt=""><img src="../../assets/brand/metawurks-wordmark-dark.png" alt=""></div>
+    <div class="tag">
+      <span class="w in" style="--at:2.05s">Private AI for</span>
+      <span class="w in hl" style="--at:2.2s">accounting, legal &amp; healthcare</span>
+      <span class="w in" style="--at:2.35s">firms.</span>
+    </div>
+  </div>
+  <div class="sweep" style="--sat:2.75s"></div>
+  <div class="grain"></div>
+  <div class="fromBlack"></div>
+  <div class="bloom" style="--bat:3.4s; --bd:.85s"></div>
+  <div class="toWhite" style="--wat:4.1s; --wd:.2s"></div>
+</div>
+</body></html>

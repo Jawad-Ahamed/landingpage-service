@@ -1,0 +1,10 @@
+# Deploy only the static site (index.html + assets/). The video build pipeline (~200 MB),
+# local tools, docs and editor settings stay out of the upload.
+video
+tools
+README.md
+.claude
+.DS_Store
+**/.DS_Store
+.env*
+.vercel
