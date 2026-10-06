@@ -1,0 +1,15 @@
+.git
+.github
+video
+tools
+README.md
+vercel.json
+.vercelignore
+.gitleaks.toml
+.trivyignore
+Dockerfile
+.dockerignore
+.claude
+.vercel
+.env*
+**/.DS_Store
