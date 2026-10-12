@@ -6,6 +6,6 @@
 
 /Dockerfile           @Quanterian-LLC/admin
 /.dockerignore        @Quanterian-LLC/admin
-/nginx.conf           @Quanterian-LLC/admin
+/next.config.ts       @Quanterian-LLC/admin
 /.gitleaks.toml       @Quanterian-LLC/admin
 /.trivyignore         @Quanterian-LLC/admin

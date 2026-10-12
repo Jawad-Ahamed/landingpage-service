@@ -1,5 +1,9 @@
 .git
 .github
+node_modules
+.next
+out
+legacy
 video
 tools
 README.md
@@ -13,3 +17,5 @@ Dockerfile
 .vercel
 .env*
 **/.DS_Store
+*.tsbuildinfo
+next-env.d.ts

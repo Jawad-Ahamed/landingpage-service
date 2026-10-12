@@ -8,7 +8,8 @@ Default output: ~/Downloads/MetaWurks landing page (current build).html
 (It never overwrites the client's reference file "MetaWurks landing page_ redesign preview.html".)
 """
 import re, base64, sys, os
-root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+# the static original lives in legacy/ since the site moved to Next.js
+root = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'legacy')
 out = sys.argv[1] if len(sys.argv) > 1 else os.path.expanduser('~/Downloads/MetaWurks landing page (current build).html')
 html=open(f'{root}/index.html',encoding='utf-8').read()
 css=open(f'{root}/assets/styles.css',encoding='utf-8').read()
