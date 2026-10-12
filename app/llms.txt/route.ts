@@ -8,7 +8,7 @@ import { RESOURCES } from '@/content/data/resources';
 import { SOLUTIONS } from '@/content/data/solutions';
 import { USE_CASES } from '@/content/data/useCases';
 import { POSTS } from '@/lib/blog';
-import { SITE } from '@/lib/site';
+import { SITE, bookHref } from '@/lib/site';
 
 export const dynamic = 'force-static';
 
@@ -58,7 +58,7 @@ ${list(RESOURCES.map(r => ({ t: r.title, p: `/resources/${r.slug}`, d: r.blurb }
 
 ## Contact
 - Email: ${SITE.email}
-- Book a 1:1 call: ${u('/#book')}
+- Book a 1:1 call: ${bookHref('llms')}
 `;
   return new Response(body, { headers: { 'content-type': 'text/plain; charset=utf-8' } });
 }

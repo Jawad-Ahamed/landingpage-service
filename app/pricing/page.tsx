@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { Fragment } from 'react';
 import { PLANS, PLAN_MATRIX, PRICING_CLAIMS, PRICING_FAQS, priceLabel } from '@/content/data/pricing';
 import { pageMeta } from '@/lib/seo';
+import { bookHref } from '@/lib/site';
 import { softwareApp } from '@/lib/schema';
 import { AnswerBlock, CheckList, ClaimNotes, CtaBand, FaqSection, PageHero, Section, SectionHead } from '@/components/templates/blocks';
 import Icon from '@/components/templates/Icon';
@@ -27,12 +28,12 @@ export default function PricingPage() {
                 <h3>{p.name}</h3>
                 <p className="pg-plan__for">{p.for}</p>
                 <div className="pg-plan__price"><b>{p.price ? <CountUp to={p.price} prefix="$" /> : priceLabel(p)}</b><span>{p.price === null ? 'priority support' : p.period}</span></div>
-                <Link className={`btn ${p.featured ? 'btn--primary' : 'btn--ghost'}`} href="/#book">{p.cta} <Icon name="arrow" className="arrow" /></Link>
+                <Link className={`btn ${p.featured ? 'btn--primary' : 'btn--ghost'}`} href={p.price === null ? bookHref('pricing') : '/#book'}>{p.cta} <Icon name="arrow" className="arrow" /></Link>
                 <CheckList items={p.features} />
               </StaggerItem>
             ))}
           </Stagger>
-          <Reveal><p className="pg-claims" style={{ textAlign: 'center' }}>Prices in USD, billed monthly. Using a platform we don&apos;t list? If it has an MCP connection, we add it within 24–48 hours. <Link href="/#book">Talk to us</Link>.</p></Reveal>
+          <Reveal><p className="pg-claims" style={{ textAlign: 'center' }}>Prices in USD, billed monthly. Using a platform we don&apos;t list? If it has an MCP connection, we add it within 24–48 hours. <Link href={bookHref('pricing')}>Talk to us</Link>.</p></Reveal>
         </div>
       </section>
 

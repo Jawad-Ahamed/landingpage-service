@@ -6,6 +6,7 @@ import { useEffect, useRef, useState } from 'react';
 import ThemeToggle from './ThemeToggle';
 import MegaMenu from './MegaMenu';
 import type { MenuGroup } from '@/lib/menu';
+import { bookHref } from '@/lib/site';
 
 export function Lockup({ size = 50 }: { size?: number }) {
   const word = Math.round(size * 1.68);
@@ -64,7 +65,7 @@ export default function Nav({ menu }: { menu: MenuGroup[] }) {
           <div className="nav__cta">
             <ThemeToggle />
             <Link className="nav__signin" href="/#book">Sign in</Link>
-            <Link className="btn btn--primary btn--sm" href="/#book">Book a 1:1 call</Link>
+            <Link className="btn btn--primary btn--sm" href={bookHref('nav')}>Book a 1:1 call</Link>
             <button ref={toggle} className="nav__toggle" type="button" aria-label={open ? 'Close menu' : 'Open menu'} aria-expanded={open} aria-controls="drawer" onClick={() => setOpen(o => !o)}><span /></button>
           </div>
         </div>
@@ -73,7 +74,7 @@ export default function Nav({ menu }: { menu: MenuGroup[] }) {
             <div key={g.label} className="mm-group"><b>{g.label}</b>{g.items!.map(it => <Link key={it.href + it.label} href={it.href} onClick={() => setOpen(false)}>{it.label}</Link>)}</div>
           ))}
           <Link href="/#book" onClick={() => setOpen(false)}>Sign in</Link>
-          <Link className="btn btn--primary" href="/#book" onClick={() => setOpen(false)}>Book a 1:1 call</Link>
+          <Link className="btn btn--primary" href={bookHref('nav')} onClick={() => setOpen(false)}>Book a 1:1 call</Link>
         </nav>
       </header>
     </>

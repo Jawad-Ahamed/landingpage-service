@@ -54,4 +54,4 @@ When a use or disclosure isn't covered by an exception, you need the taxpayer's 
 
 ## How MetaWurks approaches it
 
-MetaWurks connects to your firm's tools through OAuth and never stores passwords. Every answer cites its source, and email drafts wait for your approval. We never sell your data. We're confirming no-training terms in writing for every model provider we use, and we'll walk you through them on a [1:1 call](/#book). Your firm keeps its own 7216 consent process; we give you the controls that make it easier to follow.
+MetaWurks connects to your firm's tools through OAuth and never stores passwords. Every answer cites its source, and email drafts wait for your approval. We never sell your data. We're confirming no-training terms in writing for every model provider we use, and we'll walk you through them on a [1:1 call](https://calendly.com/gtm-metawurks/30min?utm_source=blog). Your firm keeps its own 7216 consent process; we give you the controls that make it easier to follow.

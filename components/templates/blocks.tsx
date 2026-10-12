@@ -6,6 +6,7 @@ import { INTEGRATIONS } from '@/content/data/integrations';
 import { pendingNotes } from '@/content/data/claims';
 import { breadcrumbs, faqPage } from '@/lib/schema';
 import { exists } from '@/lib/routes';
+import { bookHref } from '@/lib/site';
 import JsonLd from '@/components/seo/JsonLd';
 import { HeroLine, Reveal, Stagger, StaggerItem } from '@/components/motion/Motion';
 import HeroScroll from '@/components/motion/HeroScroll';
@@ -49,7 +50,7 @@ type HeroProps = {
   logo?: { src: string; alt: string };
 };
 export function PageHero({ trail, eyebrow, headline, lede, ctas = true, primary, secondary, meta, aside, layout = aside ? 'split' : 'solo', logo }: HeroProps) {
-  const p = primary || { label: 'Book a 1:1 call', href: '/#book' };
+  const p = primary || { label: 'Book a 1:1 call', href: bookHref('hero') };
   const copy = (
     <>
       <Breadcrumbs trail={trail} />
@@ -201,7 +202,7 @@ export function CtaBand({ title = 'Book a 1:1 call for your firm\'s', hl = 'exac
             <h2 className="h2" id="cta-h">{titlePair(title, hl)[0]} <span className="final__hl">{titlePair(title, hl)[1]}</span></h2>
             <p>{body}</p>
             <div className="final__ctas">
-              <Link className="btn btn--amber" href="/#book">Book a 1:1 call <Icon name="arrow" className="arrow" /></Link>
+              <Link className="btn btn--amber" href={bookHref('cta')}>Book a 1:1 call <Icon name="arrow" className="arrow" /></Link>
               <Link className="btn btn--line-dark" href={secondary?.href || '/resources/roi-calculator'}>{secondary?.label || 'Estimate your hours back'}</Link>
             </div>
             <p className="final__fine">Works with your current tools · Every answer cited · Drafts wait for your OK · Data never sold</p>
