@@ -1,7 +1,7 @@
 // Site-wide constants. NEXT_PUBLIC_SITE_URL is the canonical origin (set it to the real domain at launch).
 export const SITE = {
   name: 'MetaWurks',
-  url: (process.env.NEXT_PUBLIC_SITE_URL || 'https://metawurks-landing.vercel.app').replace(/\/$/, ''),
+  url: (process.env.NEXT_PUBLIC_SITE_URL || 'https://metawurks.com').replace(/\/$/, ''),
   tagline: 'Private AI agents for accounting, law & healthcare firms',
   description:
     "Private AI agents for accounting, law and healthcare firms. MetaWurks runs your firm's admin: it pulls, matches and drafts inside the tools you already use. You review, your data is never sold.",
