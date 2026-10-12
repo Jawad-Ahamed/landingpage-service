@@ -1,0 +1,11 @@
+*                     @Quanterian-LLC/admin
+
+/.github/             @Quanterian-LLC/admin
+/.github/workflows/   @Quanterian-LLC/admin
+/.github/CODEOWNERS   @Quanterian-LLC/admin
+
+/Dockerfile           @Quanterian-LLC/admin
+/.dockerignore        @Quanterian-LLC/admin
+/next.config.ts       @Quanterian-LLC/admin
+/.gitleaks.toml       @Quanterian-LLC/admin
+/.trivyignore         @Quanterian-LLC/admin

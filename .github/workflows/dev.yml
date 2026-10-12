@@ -1,0 +1,274 @@
+name: dev
+
+on:
+  push:
+    branches: [dev]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  id-token: write
+
+concurrency:
+  group: deploy-dev
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    name: Deploy to dev
+    if: vars.DEPLOY_ENABLED == 'true'
+    runs-on: ubuntu-latest
+    environment: dev
+
+    env:
+      PROJECT_ID: ${{ vars.GCP_PROJECT_ID }}
+      REGION: ${{ vars.GCP_REGION }}
+      DEPLOY_SA: ${{ vars.DEPLOY_SERVICE_ACCOUNT }}
+      RUNTIME_SA: ${{ vars.RUNTIME_SERVICE_ACCOUNT }}
+      REGISTRY_PROJECT: ${{ vars.ARTIFACT_REGISTRY_PROJECT }}
+      REGISTRY_REPO: ${{ vars.ARTIFACT_REGISTRY_REPO }}
+      IMAGE_NAME: ${{ vars.IMAGE_NAME }}
+      SERVICE: ${{ vars.CLOUD_RUN_SERVICE }}
+      SECRET_BINDINGS: ${{ vars.SECRET_BINDINGS }}
+      RUNTIME_ENV_VARS: ${{ vars.RUNTIME_ENV_VARS }}
+      CLOUDSQL_INSTANCES: ${{ vars.CLOUDSQL_INSTANCES }}
+      INGRESS: ${{ vars.INGRESS || 'all' }}
+      ALLOW_UNAUTH: ${{ vars.ALLOW_UNAUTHENTICATED || 'true' }}
+      SERVICE_PORT: ${{ vars.SERVICE_PORT || '8080' }}
+      CPU: ${{ vars.CPU || '1' }}
+      MEMORY: ${{ vars.MEMORY || '512Mi' }}
+      CONCURRENCY: ${{ vars.CONCURRENCY || '80' }}
+      MIN_INSTANCES: ${{ vars.MIN_INSTANCES || '0' }}
+      MAX_INSTANCES: ${{ vars.MAX_INSTANCES || '3' }}
+      SMOKE_PATH: ${{ vars.SMOKE_PATH || '/health' }}
+      TRIVY_SEVERITY: ${{ vars.TRIVY_SEVERITY || 'CRITICAL' }}
+
+    steps:
+      - name: Preflight
+        run: |
+          set -euo pipefail
+          missing=""
+          for v in GCP_PROJECT_ID GCP_REGION WIF_PROVIDER DEPLOY_SERVICE_ACCOUNT ARTIFACT_REGISTRY_PROJECT ARTIFACT_REGISTRY_REPO IMAGE_NAME CLOUD_RUN_SERVICE; do
+            eval "value=\${$v:-}"
+            [ -z "$value" ] && missing="$missing $v"
+          done
+          if [ -n "$missing" ]; then
+            echo "::error::Set these variables on the 'dev' GitHub Environment:$missing"
+            exit 1
+          fi
+          echo "Target: $SERVICE in $PROJECT_ID ($REGION)"
+        env:
+          GCP_PROJECT_ID: ${{ vars.GCP_PROJECT_ID }}
+          GCP_REGION: ${{ vars.GCP_REGION }}
+          WIF_PROVIDER: ${{ vars.WIF_PROVIDER }}
+          DEPLOY_SERVICE_ACCOUNT: ${{ vars.DEPLOY_SERVICE_ACCOUNT }}
+          ARTIFACT_REGISTRY_PROJECT: ${{ vars.ARTIFACT_REGISTRY_PROJECT }}
+          ARTIFACT_REGISTRY_REPO: ${{ vars.ARTIFACT_REGISTRY_REPO }}
+          IMAGE_NAME: ${{ vars.IMAGE_NAME }}
+          CLOUD_RUN_SERVICE: ${{ vars.CLOUD_RUN_SERVICE }}
+
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@v2
+        with:
+          project_id: ${{ vars.GCP_PROJECT_ID }}
+          workload_identity_provider: ${{ vars.WIF_PROVIDER }}
+          service_account: ${{ vars.DEPLOY_SERVICE_ACCOUNT }}
+
+      - name: Set up Google Cloud CLI
+        uses: google-github-actions/setup-gcloud@v2
+
+      - name: Resolve the image for this commit
+        id: image
+        run: |
+          set -euo pipefail
+          SHA_TAG="${GITHUB_SHA::12}"
+          IMAGE_URL="$REGION-docker.pkg.dev/$REGISTRY_PROJECT/$REGISTRY_REPO/$IMAGE_NAME"
+          DIGEST="$(gcloud artifacts docker images describe "$IMAGE_URL:$SHA_TAG" \
+                      --project="$REGISTRY_PROJECT" \
+                      --format='value(image_summary.digest)' 2>/dev/null || true)"
+          echo "sha_tag=$SHA_TAG"     >> "$GITHUB_OUTPUT"
+          echo "image_url=$IMAGE_URL" >> "$GITHUB_OUTPUT"
+          if [ -n "$DIGEST" ]; then
+            echo "build_needed=false" >> "$GITHUB_OUTPUT"
+            echo "image_ref=$IMAGE_URL@$DIGEST" >> "$GITHUB_OUTPUT"
+            echo "Promoting the digest already built for this commit."
+          else
+            echo "build_needed=true" >> "$GITHUB_OUTPUT"
+            echo "No image for this commit yet; building it."
+          fi
+
+      - name: Configure Docker credentials
+        if: steps.image.outputs.build_needed == 'true'
+        run: gcloud auth configure-docker $REGION-docker.pkg.dev --quiet
+
+      - name: Build image
+        if: steps.image.outputs.build_needed == 'true'
+        run: |
+          set -euo pipefail
+          docker build --platform linux/amd64 \
+            -t "${{ steps.image.outputs.image_url }}:${{ steps.image.outputs.sha_tag }}" .
+
+      - name: Scan image (Trivy)
+        if: steps.image.outputs.build_needed == 'true'
+        uses: aquasecurity/trivy-action@v0.36.0
+        with:
+          image-ref: ${{ steps.image.outputs.image_url }}:${{ steps.image.outputs.sha_tag }}
+          severity: ${{ env.TRIVY_SEVERITY }}
+          exit-code: '1'
+          ignore-unfixed: true
+          vuln-type: os,library
+          trivyignores: .trivyignore
+          format: table
+
+      - name: Push image and resolve the digest
+        if: steps.image.outputs.build_needed == 'true'
+        id: pushed
+        run: |
+          set -euo pipefail
+          IMAGE="${{ steps.image.outputs.image_url }}:${{ steps.image.outputs.sha_tag }}"
+          docker push "$IMAGE"
+          DIGEST="$(gcloud artifacts docker images describe "$IMAGE" \
+                      --project="$REGISTRY_PROJECT" \
+                      --format='value(image_summary.digest)')"
+          if [ -z "$DIGEST" ]; then
+            echo "::error::Failed to resolve a digest for $IMAGE"
+            exit 1
+          fi
+          echo "image_ref=${{ steps.image.outputs.image_url }}@$DIGEST" >> "$GITHUB_OUTPUT"
+
+      - name: Install cosign
+        if: steps.image.outputs.build_needed == 'true'
+        uses: sigstore/cosign-installer@v3.7.0
+
+      - name: Install syft
+        if: steps.image.outputs.build_needed == 'true'
+        uses: anchore/sbom-action/download-syft@v0.17.8
+
+      - name: Sign the digest and attest its SBOM
+        if: steps.image.outputs.build_needed == 'true'
+        run: |
+          set -euo pipefail
+          REF="${{ steps.pushed.outputs.image_ref }}"
+          cosign sign --yes "$REF"
+          syft "$REF" -o spdx-json > sbom.spdx.json
+          cosign attest --yes --predicate sbom.spdx.json --type spdxjson "$REF"
+
+      - name: Upload the SBOM
+        if: steps.image.outputs.build_needed == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: sbom-${{ steps.image.outputs.sha_tag }}
+          path: sbom.spdx.json
+          retention-days: 90
+
+      - name: Settle on the digest to deploy
+        id: ref
+        run: |
+          set -euo pipefail
+          REF="${{ steps.pushed.outputs.image_ref }}"
+          [ -z "$REF" ] && REF="${{ steps.image.outputs.image_ref }}"
+          case "$REF" in
+            *@sha256:*) ;;
+            *) echo "::error::Refusing to deploy '$REF'. A mutable tag cannot be promoted or rolled back."; exit 1 ;;
+          esac
+          echo "image_ref=$REF" >> "$GITHUB_OUTPUT"
+          echo "Deploying $REF"
+
+      - name: Record the rollback target
+        id: previous
+        run: |
+          set -euo pipefail
+          PREV="$(gcloud run services describe "$SERVICE" --region="$REGION" --project="$PROJECT_ID" --format=json 2>/dev/null | python3 -c "import json,sys; t=json.load(sys.stdin).get('status',{}).get('traffic',[]); print(next((x.get('revisionName','') for x in t if x.get('percent')==100), ''))" || true)"
+          [ -z "$PREV" ] && echo "::notice::Nothing is serving yet; this deploy has no rollback target."
+          echo "revision=$PREV" >> "$GITHUB_OUTPUT"
+
+      - name: Deploy the revision with no traffic
+        id: stage
+        run: |
+          set -euo pipefail
+          TAG="sha-${GITHUB_SHA::12}"
+
+          ARGS=(
+            --image="${{ steps.ref.outputs.image_ref }}"
+            --region="$REGION" --project="$PROJECT_ID"
+            --no-traffic --tag="$TAG" --quiet
+          )
+
+          gcloud run deploy "$SERVICE" "${ARGS[@]}"
+
+          REV="$(gcloud run services describe "$SERVICE" --region="$REGION" --project="$PROJECT_ID" \
+                   --format='value(status.latestCreatedRevisionName)')"
+          URL="$(gcloud run services describe "$SERVICE" --region="$REGION" --project="$PROJECT_ID" --format=json | python3 -c "import json,sys; t=json.load(sys.stdin).get('status',{}).get('traffic',[]); print(next((x.get('url','') for x in t if x.get('tag')=='$TAG'), ''))" 2>/dev/null || echo "")"
+          echo "tag=$TAG"       >> "$GITHUB_OUTPUT"
+          echo "revision=$REV"  >> "$GITHUB_OUTPUT"
+          echo "url=$URL"       >> "$GITHUB_OUTPUT"
+          echo "Staged $REV at 0% traffic, reachable at $URL"
+
+      - name: Smoke test the staged revision
+        run: |
+          set -euo pipefail
+          REV="${{ steps.stage.outputs.revision }}"
+          for attempt in $(seq 1 20); do
+            STATE="$(gcloud run revisions describe "$REV" --region="$REGION" --project="$PROJECT_ID" --format=json | python3 -c "import json,sys; c=json.load(sys.stdin).get('status',{}).get('conditions',[]); print(next((x.get('status','') for x in c if x.get('type')=='Ready'), 'Unknown'))" 2>/dev/null || echo Unknown)"
+            case "$STATE" in
+              True)  echo "Revision $REV reached Ready on attempt $attempt."; exit 0 ;;
+              False) echo "::error::Revision $REV failed to start."
+                     gcloud run revisions describe "$REV" --region="$REGION" --project="$PROJECT_ID" \
+                       --format='value(status.conditions)'
+                     exit 1 ;;
+            esac
+            echo "attempt $attempt: Ready=$STATE"
+            sleep 6
+          done
+          echo "::error::Revision $REV never reported Ready."
+          exit 1
+
+      - name: Release all traffic
+        run: |
+          set -euo pipefail
+          gcloud run services update-traffic "$SERVICE" \
+            --region="$REGION" --project="$PROJECT_ID" \
+            --to-revisions="${{ steps.stage.outputs.revision }}=100" --quiet
+          echo "${{ steps.stage.outputs.revision }} now serves 100%."
+
+      - name: Drop the previous revisions' tags
+        continue-on-error: true
+        run: |
+          set -euo pipefail
+          STALE="$(gcloud run services describe "$SERVICE" --region="$REGION" --project="$PROJECT_ID" --format=json | python3 -c "import json,sys; t=json.load(sys.stdin).get('status',{}).get('traffic',[]); print(','.join(sorted(x['tag'] for x in t if x.get('tag') and x.get('revisionName')!='${{ steps.stage.outputs.revision }}')))")"
+          if [ -z "$STALE" ]; then echo "No stale tags."; exit 0; fi
+          gcloud run services update-traffic "$SERVICE" --region="$REGION" --project="$PROJECT_ID" --remove-tags="$STALE" --quiet
+          echo "Removed stale tags: $STALE"
+
+      - name: Roll back
+        if: failure() && steps.previous.outputs.revision != ''
+        run: |
+          set -euo pipefail
+          START="$(date +%s)"
+          gcloud run services update-traffic "$SERVICE" \
+            --region="$REGION" --project="$PROJECT_ID" \
+            --to-revisions="${{ steps.previous.outputs.revision }}=100" --quiet
+          echo "::warning::Rolled back to ${{ steps.previous.outputs.revision }} in $(( $(date +%s) - START ))s."
+
+      - name: Summary
+        if: always()
+        run: |
+          {
+            echo "### $SERVICE -- dev"
+            echo ""
+            echo "| | |"
+            echo "| --- | --- |"
+            echo "| Result | ${{ job.status }} |"
+            echo "| Image | \`${{ steps.ref.outputs.image_ref }}\` |"
+            echo "| Built here | ${{ steps.image.outputs.build_needed }} |"
+            echo "| Revision | \`${{ steps.stage.outputs.revision }}\` |"
+            echo "| Previous | \`${{ steps.previous.outputs.revision }}\` |"
+            echo ""
+            echo "Roll back with:"
+            echo '```bash'
+            echo "gcloud run services update-traffic $SERVICE --region=$REGION --project=$PROJECT_ID --to-revisions=${{ steps.previous.outputs.revision }}=100"
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"

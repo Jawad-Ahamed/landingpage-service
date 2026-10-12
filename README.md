@@ -1,5 +1,14 @@
 # MetaWurks V2 — Landing page mock
 
+## Run and deploy (Next.js)
+
+- **Local:** `npm install`, then `npm run dev` (http://localhost:3000). `npm run check` runs the type check and the claims check.
+- **Container:** `Dockerfile` builds a Next.js standalone server on port 8080 with a `/health` probe. CI (`.github/workflows/validate.yml`) type-checks, builds, smoke-tests and Trivy-scans it; `dev.yml` / `prod.yml` push to Artifact Registry and deploy to Cloud Run.
+- **Build-time settings:** `NEXT_PUBLIC_SITE_URL` (canonical origin) and `NEXT_PUBLIC_INDEXABLE` are baked in when the image is built (`--build-arg`). One image is promoted dev → prod, so they apply to both.
+- **Runtime settings:** `LEAD_SINK=webhook` + `LEAD_WEBHOOK_URL` send form leads to a webhook; the default logs them to the server log.
+- `legacy/` holds the old static page for reference; it is not served.
+
+
 A static, dependency-free concept mock of the new MetaWurks marketing site, built for internal review. It ships in light and dark themes.
 
 ```

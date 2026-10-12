@@ -14,3 +14,10 @@ video/build/
 # Put "Corporate Motivational (without piano melody).wav" here to rebuild the soundtrack.
 video/audio/music/*.wav
 video/audio/music/*.mp3
+
+# Next.js
+node_modules/
+.next/
+out/
+next-env.d.ts
+*.tsbuildinfo

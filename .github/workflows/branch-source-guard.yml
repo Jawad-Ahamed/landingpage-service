@@ -1,0 +1,45 @@
+name: branch-source-guard
+
+on:
+  pull_request_target:
+    types: [ opened, reopened, synchronize, edited ]
+    branches: [ main ]
+
+permissions:
+  contents: read
+
+jobs:
+  guard:
+    name: guard
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Enforce allowed source branch
+        env:
+          BASE:      ${{ github.base_ref }}
+          HEAD:      ${{ github.head_ref }}
+          HEAD_REPO: ${{ github.event.pull_request.head.repo.full_name }}
+          THIS_REPO: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          echo "Pull request: '$HEAD' -> '$BASE'"
+
+          if [ "$HEAD_REPO" != "$THIS_REPO" ]; then
+            echo "::error::Fork pull requests are not permitted on protected branches (head repo: $HEAD_REPO)."
+            exit 1
+          fi
+
+          case "$BASE" in
+            main)
+              if [ "$HEAD" != "dev" ]; then
+                echo "::error::'main' accepts pull requests from 'dev' only. This pull request is from '$HEAD'. Merge your work into 'dev' first, then open dev -> main."
+                exit 1
+              fi
+              ;;
+            *)
+              echo "::error::Guard ran against an unexpected base branch '$BASE'. Refusing to pass."
+              exit 1
+              ;;
+          esac
+
+          echo "Source branch '$HEAD' is permitted for base '$BASE'."
