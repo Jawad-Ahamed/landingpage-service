@@ -21,8 +21,8 @@ export default function IntegrationDirectory({ items, categories }: { items: Pic
       <m.div layout className="pg-grid pg-grid--3">
         <AnimatePresence initial={false} mode="popLayout">
           {shown.map(i => (
-            <m.div key={i.slug} layout initial={{ opacity: 0, scale: .96 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: .96 }} transition={{ duration: .3 }}>
-              <Link className="pg-tile pg-int" href={`/integrations/${i.slug}`} style={{ height: '100%' }}>
+            <m.div key={i.slug} layout initial={{ opacity: 0, scale: .96 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: .96 }} transition={{ duration: .25, ease: [0.16, 1, 0.3, 1] }}>
+              <Link className="pg-tile pg-int doc-stack" data-tilt href={`/integrations/${i.slug}`} style={{ height: '100%' }}>
                 <span className="pg-int__logo"><img src={i.logo} alt="" width={28} height={28} /></span>
                 <span className="pg-int__body"><span className="pg-int__cat">{i.category}</span><h3>{i.name}</h3><p>{i.blurb}</p></span>
               </Link>

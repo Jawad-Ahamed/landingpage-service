@@ -42,9 +42,9 @@ export default async function AgentPage({ params }: Props) {
       <Section paper label="How it works">
         <SectionHead eyebrow="How it works" title="Brief it like a new hire." hl="Review it like a partner." />
         <Stagger className="pg-grid pg-grid--3">
-          <StaggerItem className="pg-card"><h3><Icon name="chat" />It asks</h3><CheckList items={a.asks} /></StaggerItem>
-          <StaggerItem className="pg-card"><h3><Icon name="plug" />It reads</h3><AppChips slugs={a.reads} /></StaggerItem>
-          <StaggerItem className="pg-card"><h3><Icon name="flag" />It always hands back</h3><CheckList items={a.reviews} /></StaggerItem>
+          <StaggerItem className="pg-card"><h3><Icon name="chat" />It Asks</h3><CheckList items={a.asks} /></StaggerItem>
+          <StaggerItem className="pg-card"><h3><Icon name="plug" />It Reads</h3><AppChips slugs={a.reads} /></StaggerItem>
+          <StaggerItem className="pg-card"><h3><Icon name="flag" />It Always Hands Back</h3><CheckList items={a.reviews} /></StaggerItem>
         </Stagger>
       </Section>
 

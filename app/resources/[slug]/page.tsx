@@ -50,7 +50,7 @@ export default async function ResourcePage({ params }: Props) {
         headline={[r.title.split(' for ')[0], r.title.includes(' for ') ? `for ${r.title.split(' for ')[1]}.` : 'Free to download.']} lede={r.blurb} ctas={false}
         aside={
           <div className="pg-card">
-            <h3>{r.status === 'ready' ? 'Get it free' : 'Get it first'}</h3>
+            <h3>{r.status === 'ready' ? 'Get It Free' : 'Get It First'}</h3>
             <p style={{ color: 'var(--slate)', fontSize: 15.5 }}>{r.status === 'ready' ? 'We\'ll email it to you and show the download right away.' : 'It\'s being finalized. Leave your email and we\'ll send it the day it\'s ready.'}</p>
             <LeadForm kind="resource" resource={r.slug} cta={r.status === 'ready' ? 'Send me the ' + r.kind.toLowerCase() : 'Notify me'} fields={['name', 'firmType']}
               done={r.status === 'ready' ? 'Check your inbox for the download.' : 'You\'re on the list. We\'ll email it the day it\'s ready.'} />
@@ -58,7 +58,7 @@ export default async function ResourcePage({ params }: Props) {
         } />
       <Section paper label="What you get">
         <div className="pg-split">
-          <div className="pg-sticky"><Reveal><h2 className="h2">What&apos;s inside</h2></Reveal><Reveal delay={0.08}><p className="lede">For {r.audience.toLowerCase()}.</p></Reveal></div>
+          <div className="pg-sticky"><Reveal><h2 className="h2">What&apos;s Inside</h2></Reveal><Reveal delay={0.08}><p className="lede">For {r.audience.toLowerCase()}.</p></Reveal></div>
           <Reveal><div className="pg-card"><CheckList items={r.outcome} tone="grn" /></div></Reveal>
         </div>
       </Section>

@@ -4,7 +4,9 @@ headline: ["How CPA firms can use AI", "without tripping over IRC 7216."]
 description: "A practical guide for accounting and tax firms: what Section 7216 covers, where AI tools raise questions, and the controls to look for before client data goes near one."
 published: "2026-10-06"
 author: "MetaWurks team"
-tags: ["Accounting & tax", "Compliance", "AI policy"]
+tags: ["Accounting & tax", "Compliance"]
+cover: { kicker: "IRC §7216", glyph: "calc", tone: "acct" }
+featured: true
 answer: "CPA firms can use AI under IRC Section 7216 by treating every AI tool as a place tax return information might go. Know where client data is processed, who can access it and whether it is used for anything beyond preparing the return. Then get client consent where the regulations require it, and keep a preparer reviewing every output."
 ---
 

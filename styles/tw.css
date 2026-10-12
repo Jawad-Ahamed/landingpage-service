@@ -1,0 +1,31 @@
+/* Tailwind v4, utilities only. No Preflight: the site's own reset and design system (site.css) stay in charge.
+   Utilities are unlayered and imported last, so they win over component classes of equal specificity.
+   Theme tokens map Tailwind's names onto the existing CSS variables, so `bg-surface`, `text-slate`,
+   `ease-expo` etc. follow light/dark automatically. */
+@import "tailwindcss/theme.css" layer(theme);
+@import "tailwindcss/utilities.css";
+@source "../app";
+@source "../components";
+
+@theme inline {
+  --color-ink: var(--ink);
+  --color-slate: var(--slate);
+  --color-faint: var(--faint);
+  --color-paper: var(--paper);
+  --color-surface: var(--surface);
+  --color-surface-raised: var(--surface-raised);
+  --color-rule: var(--rule);
+  --color-rule-soft: var(--rule-soft);
+  --color-cobalt: var(--cobalt);
+  --color-cobalt-50: var(--cobalt-50);
+  --color-cobalt-200: var(--cobalt-200);
+  --color-canvas: var(--bg);
+  --color-charcoal: #0B0F19;
+  --color-architect: #F9FAFB;
+  --font-display: var(--f-display);
+  --font-body: var(--f-body);
+  --ease-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-luxe: cubic-bezier(0.22, 1, 0.36, 1);
+  --radius-xl2: var(--r-xl);
+  --shadow-lift: 0 10px 30px -12px rgba(14, 27, 51, 0.28);
+}

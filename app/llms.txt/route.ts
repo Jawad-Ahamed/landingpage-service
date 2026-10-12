@@ -22,7 +22,9 @@ export function GET() {
 Key facts:
 - Who it's for: accounting & tax firms, law firms, healthcare practices and finance teams.
 - How it works: connects the firm's existing tools through OAuth (no passwords stored); agents pull, match and draft; a person reviews. Every answer cites its source; email drafts wait for approval.
-- Pricing (USD, billed monthly): ${PLANS.map(p => `${p.name} $${p.price}`).join(', ')}.
+- Pricing (USD): ${PLANS.map(p => `${p.name} ${p.price === null ? '(custom, priority support)' : p.price === 0 ? '(free for one month, 1M AI tokens)' : `$${p.price}/month`}`).join(', ')}.
+- Models: every leading AI model plus Auto routing, and Private mode, which runs on MetaWurks' own model and servers so nothing is sent to an outside AI provider.
+- Integrations: 15+ ready-made; any MCP-enabled platform can be added within 24–48 hours.
 - Data: never sold. Not HIPAA compliant and no SOC 2 report today; BAA position not settled (see the security page).
 
 ## Product

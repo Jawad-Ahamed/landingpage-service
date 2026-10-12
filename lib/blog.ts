@@ -3,6 +3,7 @@ import { readdirSync, readFileSync } from 'node:fs';
 import path from 'node:path';
 import matter from 'gray-matter';
 import { marked } from 'marked';
+import { titleCase } from './titleCase';
 
 export type Post = {
   slug: string;
@@ -14,6 +15,9 @@ export type Post = {
   author: string;
   tags: string[];
   answer: string;            // the 40–60 word direct answer shown first
+  cover: { kicker: string; glyph: string; tone: 'acct' | 'legal' | 'health' | 'fin' };
+  featured: boolean;
+  pick: boolean;
   readingMinutes: number;
   html: string;
   headings: { id: string; text: string }[];
@@ -30,8 +34,9 @@ function load(): Post[] {
     const headings: Post['headings'] = [];
     const renderer = new marked.Renderer();
     renderer.heading = ({ tokens, depth }) => {
-      const text = marked.Parser.parseInline(tokens);
-      const id = slugify(text);
+      const raw = marked.Parser.parseInline(tokens);
+      const id = slugify(raw);
+      const text = raw.split(/(<[^>]+>)/).map(b => (b.startsWith('<') ? b : titleCase(b))).join('');
       if (depth === 2) headings.push({ id, text: text.replace(/<[^>]+>/g, '') });
       return `<h${depth} id="${id}">${text}</h${depth}>`;
     };
@@ -41,6 +46,7 @@ function load(): Post[] {
       slug: f.replace(/\.md$/, ''),
       title: data.title, headline: data.headline || [data.title, ''], description: data.description, published: data.published, updated: data.updated,
       author: data.author || 'MetaWurks team', tags: data.tags || [], answer: data.answer,
+      cover: data.cover || { kicker: data.tags?.[0] || 'Guide', glyph: 'file', tone: 'fin' }, featured: !!data.featured, pick: !!data.pick,
       readingMinutes: Math.max(1, Math.round(words / 230)), html, headings,
     } satisfies Post;
   }).sort((a, b) => (a.published < b.published ? 1 : -1));
@@ -48,3 +54,4 @@ function load(): Post[] {
 
 export const POSTS: Post[] = load();
 export const post = (slug: string) => POSTS.find(p => p.slug === slug);
+export const CATEGORIES = [...new Set(POSTS.flatMap(p => p.tags))];

@@ -5,6 +5,7 @@ import { useInView } from 'motion/react';
 import { useEffect, useRef, useState } from 'react';
 import type { AgentRun as Run } from '@/content/data/types';
 import { INTEGRATIONS } from '@/content/data/integrations';
+import { titleCase } from '@/lib/titleCase';
 
 const STEP_MS = 720, HOLD_MS = 4200;
 
@@ -41,7 +42,7 @@ export default function AgentRun({ run, asks, apps = [], note = 'Sample run · f
     <div>
       <div ref={ref} className={`run${done ? ' is-done' : ''}`}>
         <div className="run__head">
-          <div className="run__title"><h3>{run.title}</h3></div>
+          <div className="run__title"><h3>{titleCase(run.title)}</h3></div>
           <div className="run__state" aria-hidden="true"><i className="spin" /><span className="ok"><svg><use href="#i-check" /></svg></span></div>
         </div>
         {chips.length > 0 && (

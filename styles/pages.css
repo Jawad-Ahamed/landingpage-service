@@ -49,7 +49,7 @@
 .pg-grid--4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 
 /* tiles */
-.pg-tile { position: relative; display: flex; flex-direction: column; gap: 10px; padding: clamp(20px, 2.2vw, 28px); border-radius: var(--r-xl); background: var(--surface); border: 1px solid var(--rule); box-shadow: var(--sh-xs); min-width: 0; transition: transform .35s var(--ease), box-shadow .35s var(--ease), border-color .35s var(--ease); }
+.pg-tile { position: relative; display: flex; flex-direction: column; gap: 10px; padding: clamp(20px, 2.2vw, 28px); border-radius: var(--r-xl); background: var(--surface); border: 1px solid var(--rule); box-shadow: var(--sh-xs); min-width: 0; transition: transform var(--dur-micro) var(--ease-expo), box-shadow var(--dur-micro) var(--ease-expo), border-color var(--dur-micro) var(--ease-expo); }
 a.pg-tile { color: inherit; }
 a.pg-tile:hover { transform: translateY(-3px); box-shadow: var(--sh-md); border-color: var(--cobalt-200); }
 .pg-tile h3 { font-size: 1.18rem; letter-spacing: -.02em; }
@@ -142,7 +142,7 @@ a.pg-tile:hover .pg-tile__more svg { transform: translateX(3px); }
 .pg-plan__for { font-size: 15px; color: var(--slate); min-height: 3em; }
 .pg-plan__price { display: flex; align-items: baseline; gap: 6px; }
 .pg-plan__price b { font-size: clamp(2.6rem, 4vw, 3.4rem); font-weight: 700; letter-spacing: -.045em; line-height: 1; }
-.pg-plan__price span { color: var(--slate); font-size: 15px; }
+.pg-plan__price > span { color: var(--slate); font-size: 15px; }
 .pg-plan .btn { width: 100%; }
 .pg-plan .pg-list li { font-size: 15px; }
 
@@ -260,3 +260,11 @@ html:not(.js) [data-reveal] { opacity: 1 !important; transform: none !important;
   .nav__drawer { max-height: calc(100dvh - var(--nav-h)); overflow-y: auto; }
   .nav__drawer .mm-group a { padding: 10px 4px; font-size: 16px; font-weight: 500; border-bottom: 0; }
 }
+
+/* ---------- Four plans: Free Trial, Professional, Firm, Enterprise ---------- */
+.pg-plans, .plans { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.plan .price small, .pg-plan__price > span { white-space: nowrap; }
+.pg-plan__price, .plan .price { flex-wrap: wrap; row-gap: 8px; }
+.plan--ent { background: linear-gradient(160deg, var(--surface), var(--cobalt-50)); }
+@media (max-width: 1180px) { .pg-plans, .plans { grid-template-columns: repeat(2, minmax(0, 1fr)); max-width: 860px; margin-inline: auto; row-gap: 28px; } }
+@media (max-width: 640px) { .pg-plans, .plans { grid-template-columns: minmax(0, 1fr); max-width: 520px; } }

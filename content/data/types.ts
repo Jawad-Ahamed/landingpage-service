@@ -92,6 +92,6 @@ export type Compare = {
   faqs: Faq[];
 };
 
-export type Plan = { name: string; price: number; for: string; features: string[]; cta: string; featured?: boolean };
+export type Plan = { name: string; price: number | null; period: string; for: string; features: string[]; cta: string; featured?: boolean; badge?: string };
 
 export type GlossaryTerm = { slug: string; term: string; short: string; body: string[]; related: string[]; seeAlso?: { label: string; href: string }[] };

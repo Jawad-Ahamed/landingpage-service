@@ -7,8 +7,11 @@ import { exists, href } from '@/lib/routes';
 import { agentItems, resourceItems, useCaseItems } from '@/lib/links';
 import { AnswerBlock, AppChips, ClaimNotes, CtaBand, FaqSection, PageHero, Related, Section, SectionHead, Tiles } from '@/components/templates/blocks';
 import AgentRun from '@/components/templates/AgentRun';
+import Testimonials from '@/components/templates/Testimonials';
+import ThemeShift, { ACCT_SHIFT } from '@/components/motion/ThemeShift';
 import Icon from '@/components/templates/Icon';
 import { Reveal } from '@/components/motion/Motion';
+import { titleCase } from '@/lib/titleCase';
 
 type Props = { params: Promise<{ slug: string }> };
 export const dynamicParams = false;
@@ -39,6 +42,8 @@ export default async function SolutionPage({ params }: Props) {
 
       <Section label="Short answer" tight><AnswerBlock answer={s.answer} /></Section>
 
+      <ThemeShift {...ACCT_SHIFT} />
+
       <Section label="The problem">
         <SectionHead eyebrow="Sound familiar?" title="Too many systems." hl="Too few hands." />
         <Tiles cols={3} items={s.pains.map(p => ({ title: p.title, body: p.body, src: p.source, icon: 'clock' }))} />
@@ -55,8 +60,8 @@ export default async function SolutionPage({ params }: Props) {
             <SectionHead eyebrow="Your obligations" title="Built for people bound" hl="by confidentiality." />
           </div>
           <div style={{ display: 'grid', gap: 16 }}>
-            <Reveal><div className="pg-note"><span className="pg-note__ico"><Icon name="scale" /></span><div><h3>{s.compliance.title}</h3><p>{s.compliance.body}</p></div></div></Reveal>
-            <Reveal delay={0.08}><div className="pg-note"><span className="pg-note__ico"><Icon name="shield" /></span><div><h3>Controls that help</h3><p>OAuth sign-in with no stored passwords, per-person connections, locked projects, cited answers and drafts that wait for approval. <a href="/security">See security &amp; data integrity</a>.</p></div></div></Reveal>
+            <Reveal><div className="pg-note"><span className="pg-note__ico"><Icon name="scale" /></span><div><h3>{titleCase(s.compliance.title)}</h3><p>{s.compliance.body}</p></div></div></Reveal>
+            <Reveal delay={0.08}><div className="pg-note"><span className="pg-note__ico"><Icon name="shield" /></span><div><h3>Controls That Help</h3><p>OAuth sign-in with no stored passwords, per-person connections, locked projects, cited answers and drafts that wait for approval. <a href="/security">See security &amp; data integrity</a>.</p></div></div></Reveal>
             <ClaimNotes ids={s.claims} />
           </div>
         </div>
@@ -67,6 +72,7 @@ export default async function SolutionPage({ params }: Props) {
         <Reveal><AppChips slugs={s.integrations} /></Reveal>
       </Section>
 
+      <Testimonials vertical={s.tag} />
       <FaqSection faqs={s.faqs} title={`AI for ${s.short.toLowerCase()}:`} hl="straight answers." />
       <Related items={[...useCaseItems(s.useCases), ...agentItems(s.agents), ...resourceItems(['roi-calculator', 'ai-vendor-due-diligence-checklist'])]} />
       <CtaBand />

@@ -362,6 +362,25 @@ export function initHome(scope: HTMLElement): () => void {
     if (document.fonts) document.fonts.ready.then(() => { if (!signal.aborted) fitShots(); });
   }
 
+  /* 4d. Hero → product demo continuity (scroll-tied): the headline column drifts down 20px and fades,
+         while the dashboard scales 0.95 → 1.0 and settles into focus. Transforms/opacity only. */
+  const heroCopy = $('.hero__inner'), heroShot = $('.hero__shot .workspace');
+  if (heroCopy && heroShot && !REDUCED) {
+    heroShot.style.transformOrigin = '50% 0%';
+    let ticking = false;
+    const heroUpdate = () => {
+      ticking = false;
+      const y = window.scrollY;
+      const p = clamp(y / 520), q = clamp(y / 420);
+      heroCopy.style.transform = `translate3d(0, ${(20 * p).toFixed(2)}px, 0)`;
+      heroCopy.style.opacity = (1 - 0.75 * p).toFixed(3);
+      heroShot.style.transform = `scale(${(0.95 + 0.05 * q).toFixed(4)})`;
+    };
+    heroUpdate();
+    on(window, 'scroll', () => { if (!ticking) { ticking = true; frame(heroUpdate); } }, { passive: true });
+    signal.addEventListener('abort', () => { heroCopy.style.transform = ''; heroCopy.style.opacity = ''; heroShot.style.transform = ''; });
+  }
+
   // "visible while on screen" helper for looping demos (see the original for the ratio reasoning)
   function whileVisible(el, onShow, onHide) {
     let shown;

@@ -57,7 +57,7 @@ export default function SecurityPage() {
             {notYet.map(c => (
               <StaggerItem key={c.id} className="pg-note">
                 <span className="pg-note__ico"><Icon name="flag" /></span>
-                <div><h3>{c.text.replace(/\.$/, '')}: not yet</h3><p>{c.id === 'baa' ? 'Our BAA position isn\'t settled. Don\'t process PHI in MetaWurks until it is, in writing.' : c.id === 'hipaa' ? 'We don\'t claim HIPAA compliance. Talk to us before any patient records come near the workspace.' : 'No SOC 2 report exists yet. We\'ll publish our status here when an audit is underway.'}</p></div>
+                <div><h3>{c.text.replace(/\.$/, '')}: Not Yet</h3><p>{c.id === 'baa' ? 'Our BAA position isn\'t settled. Don\'t process PHI in MetaWurks until it is, in writing.' : c.id === 'hipaa' ? 'We don\'t claim HIPAA compliance. Talk to us before any patient records come near the workspace.' : 'No SOC 2 report exists yet. We\'ll publish our status here when an audit is underway.'}</p></div>
               </StaggerItem>
             ))}
           </Stagger>
@@ -68,7 +68,7 @@ export default function SecurityPage() {
         <Reveal>
           <div className="pg-note" style={{ alignItems: 'center' }}>
             <span className="pg-note__ico"><Icon name="check-c" /></span>
-            <div><h3>Ask every AI vendor the same 25 questions.</h3><p>Our free checklist covers training, retention, access, PHI, IRC 7216 and ABA Opinion 512, with what a good answer sounds like. <a href="/resources/ai-vendor-due-diligence-checklist">Get the checklist →</a></p></div>
+            <div><h3>Ask Every AI Vendor the Same 25 Questions.</h3><p>Our free checklist covers training, retention, access, PHI, IRC 7216 and ABA Opinion 512, with what a good answer sounds like. <a href="/resources/ai-vendor-due-diligence-checklist">Get the checklist →</a></p></div>
           </div>
         </Reveal>
       </Section>

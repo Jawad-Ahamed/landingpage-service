@@ -46,9 +46,9 @@ export default async function IntegrationPage({ params }: Props) {
       <Section paper label={`What MetaWurks does with ${i.name}`}>
         <SectionHead eyebrow="Once connected" title={`What MetaWurks can do with ${i.name}†`} />
         <Stagger className="pg-grid pg-grid--3">
-          <StaggerItem className="pg-card"><h3><Icon name="file" />What it reads</h3><CheckList items={i.reads} /></StaggerItem>
-          <StaggerItem className="pg-card"><h3><Icon name="bolt" />What agents do</h3><CheckList items={i.does} /></StaggerItem>
-          <StaggerItem className="pg-card"><h3><Icon name="shield" />What it never does</h3><CheckList items={i.never} tone="no" /></StaggerItem>
+          <StaggerItem className="pg-card"><h3><Icon name="file" />What It Reads</h3><CheckList items={i.reads} /></StaggerItem>
+          <StaggerItem className="pg-card"><h3><Icon name="bolt" />What Agents Do</h3><CheckList items={i.does} /></StaggerItem>
+          <StaggerItem className="pg-card"><h3><Icon name="shield" />What It Never Does</h3><CheckList items={i.never} tone="no" /></StaggerItem>
         </Stagger>
         <ClaimNotes ids={i.claims} />
       </Section>
@@ -68,9 +68,9 @@ export default async function IntegrationPage({ params }: Props) {
         <SectionHead eyebrow="Setup" title={`Connect ${i.name} in about a minute.`} />
         <Reveal>
           <ol className="pg-steps">
-            <li className="pg-step"><div><h3>Open Integrations</h3><p>In your MetaWurks workspace, open Integrations and choose {i.name}.</p></div></li>
-            <li className="pg-step"><div><h3>Sign in on {possessive(i.name)} own screen</h3><p>MetaWurks receives an encrypted access token. It never sees or stores your password.</p></div></li>
-            <li className="pg-step"><div><h3>Ask or run an agent</h3><p>Ask a question or run an agent that uses {i.name}. Disconnect anytime and the token is revoked.</p></div></li>
+            <li className="pg-step"><div><h3>Open Integrations</h3><p data-read>In your MetaWurks workspace, open Integrations and choose {i.name}.</p></div></li>
+            <li className="pg-step"><div><h3>Sign in on {possessive(i.name)} Own Screen</h3><p data-read>MetaWurks receives an encrypted access token. It never sees or stores your password.</p></div></li>
+            <li className="pg-step"><div><h3>Ask or Run an Agent</h3><p data-read>Ask a question or run an agent that uses {i.name}. Disconnect anytime and the token is revoked.</p></div></li>
           </ol>
         </Reveal>
       </Section>

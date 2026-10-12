@@ -229,10 +229,10 @@ export const INTEGRATIONS: Integration[] = [
     claims: BASE_CLAIMS,
   },
   {
-    slug: 'mcp', tagline: 'Bring any tool that speaks MCP.', name: 'Custom MCP connector', logo: '/assets/logos/mcp.svg', category: 'Custom',
-    blurb: 'Bring in a tool that isn\'t listed, through the Model Context Protocol.',
+    slug: 'mcp', tagline: 'Any MCP-enabled tool, live in 24–48 hours.', name: 'Custom MCP connector', logo: '/assets/logos/mcp.svg', category: 'Custom',
+    blurb: 'Any platform your firm uses that offers an MCP connection, added within 24–48 hours.',
     answer: { question: 'Can MetaWurks connect to tools that aren\'t listed?', updated: UPDATED,
-      answer: 'Yes, through a Custom MCP connector. The Model Context Protocol (MCP) is an open standard for connecting AI tools to other systems. If your practice-management, document or industry tool offers an MCP server, MetaWurks can use it like any other integration, with the same approval rules.' },
+      answer: 'Yes. MetaWurks isn\'t limited to its ready-made integrations: if a platform your firm uses offers an MCP (Model Context Protocol) connection, we add it to your workspace within 24–48 hours. That covers practice-management, document, EHR and tax tools, and it works like any other integration, with the same approval rules.' },
     reads: ['Whatever the tool\'s MCP server exposes, with your permission'],
     does: ['Lets agents use tools beyond the built-in list'],
     never: ['Bypasses the approval rules that apply to every integration'],
@@ -241,7 +241,8 @@ export const INTEGRATIONS: Integration[] = [
     useCases: [],
     faqs: [
       { q: 'What is MCP?', a: 'The Model Context Protocol is an open standard that lets AI applications connect to external tools and data sources in a consistent way. See the [MCP glossary entry](/glossary/mcp).' },
-      { q: 'Which plans include Custom MCP connectors?', a: 'Ask on a 1:1 call; availability by plan is being finalized.' },
+      { q: 'How long does it take to add a new tool?', a: 'If the platform offers an MCP connection, we add it within 24–48 hours. Tell us the tool on a 1:1 call or from your workspace.' },
+      { q: 'Which plans include new MCP connectors?', a: 'Every plan can request one. On Enterprise we also set the connectors up and maintain them for you.' },
     ],
     claims: [...BASE_CLAIMS, 'mcp-custom'],
   },

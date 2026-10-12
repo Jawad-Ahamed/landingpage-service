@@ -8,7 +8,9 @@ import { agentItems, integrationItems, resourceItems, solutionItems, solutionsUs
 import { AnswerBlock, AppChips, CheckList, CtaBand, FaqSection, PageHero, Related, Section, SectionHead } from '@/components/templates/blocks';
 import AgentRun from '@/components/templates/AgentRun';
 import JsonLd from '@/components/seo/JsonLd';
+import ThemeShift, { ACCT_SHIFT } from '@/components/motion/ThemeShift';
 import { Reveal, Stagger, StaggerItem } from '@/components/motion/Motion';
+import { titleCase } from '@/lib/titleCase';
 
 type Props = { params: Promise<{ slug: string }> };
 export const dynamicParams = false;
@@ -38,6 +40,8 @@ export default async function UseCasePage({ params }: Props) {
 
       <Section label="Short answer" tight><AnswerBlock answer={u.answer} /></Section>
 
+      <ThemeShift {...ACCT_SHIFT} />
+
       <Section paper label="Before and after">
         <SectionHead eyebrow="The payoff" title="From busywork" hl="to finished prep." />
         <Stagger className="pg-ba">
@@ -53,7 +57,7 @@ export default async function UseCasePage({ params }: Props) {
             <Reveal><AppChips slugs={u.integrations} /></Reveal>
           </div>
           <Stagger as="ol" className="pg-steps">
-            {u.howto.map(s => <StaggerItem as="li" key={s.name} className="pg-step"><div><h3>{s.name}</h3><p>{s.text}</p></div></StaggerItem>)}
+            {u.howto.map(s => <StaggerItem as="li" key={s.name} className="pg-step"><div><h3>{titleCase(s.name)}</h3><p data-read>{s.text}</p></div></StaggerItem>)}
           </Stagger>
         </div>
         <JsonLd data={howTo({ name: `How to automate ${u.name.toLowerCase()} with AI`, description: u.answer.answer, steps: u.howto })} />

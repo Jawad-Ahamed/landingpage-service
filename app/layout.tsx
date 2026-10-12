@@ -2,10 +2,13 @@ import type { Metadata, Viewport } from 'next';
 import { Geist } from 'next/font/google';
 import '@/styles/site.css';
 import '@/styles/pages.css';
+import '@/styles/motion.css';
+import '@/styles/tw.css';
 import Nav from '@/components/chrome/Nav';
 import Footer from '@/components/chrome/Footer';
 import IconSprite from '@/components/chrome/IconSprite';
 import SiteEffects from '@/components/chrome/SiteEffects';
+import SectionThread from '@/components/chrome/SectionThread';
 import { MotionProvider } from '@/components/motion/Motion';
 import JsonLd from '@/components/seo/JsonLd';
 import { organization } from '@/lib/schema';
@@ -50,6 +53,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <Footer cols={getFooter()} />
         </MotionProvider>
         <SiteEffects />
+        <SectionThread />
         <JsonLd data={organization()} />
       </body>
     </html>

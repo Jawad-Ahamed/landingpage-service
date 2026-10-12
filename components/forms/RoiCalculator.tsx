@@ -47,7 +47,7 @@ export default function RoiCalculator() {
   const r = useMemo(() => {
     const adminMonth = team * hours * WEEKS_PER_MONTH;
     const back = adminMonth * (share / 100);
-    const plan = team <= 1 ? PLANS[0] : team <= 10 ? PLANS[1] : PLANS[2];
+    const plan = team <= 5 ? PLANS[1] : team <= 20 ? PLANS[2] : PLANS[3];
     return { adminMonth, back, perPerson: back / team, value: back * rate, year: back * rate * 12, plan };
   }, [team, hours, rate, share]);
 
@@ -74,7 +74,7 @@ export default function RoiCalculator() {
           <div><span>Hours back per person, per month</span><b>{r.perPerson.toFixed(1)} h</b></div>
           <div><span>Value of hours back, per month</span><b><Tick value={money(r.value)} /></b></div>
           <div><span>Per year</span><b><Tick value={money(r.year)} /></b></div>
-          <div><span>Suggested plan</span><b>{r.plan.name} · from ${r.plan.price}/mo</b></div>
+          <div><span>Suggested plan</span><b>{r.plan.name} · {r.plan.price === null ? 'custom pricing' : `$${r.plan.price}/mo`}</b></div>
         </div>
         <div style={{ marginTop: 22 }}>
           {!emailOpen

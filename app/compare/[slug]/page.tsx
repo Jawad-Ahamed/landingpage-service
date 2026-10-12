@@ -46,8 +46,8 @@ export default async function ComparePage({ params }: Props) {
       <Section label="Which should you choose">
         <SectionHead eyebrow="Honest answer" title="Which one" hl="fits your firm?" />
         <Stagger className="pg-ba">
-          <StaggerItem className="pg-ba__col"><h3>Choose {c.name} if…</h3><CheckList items={c.whenThem} /></StaggerItem>
-          <StaggerItem className="pg-ba__col pg-ba__col--after"><h3>Choose MetaWurks if…</h3><CheckList items={c.whenUs} tone="grn" /></StaggerItem>
+          <StaggerItem className="pg-ba__col"><h3>Choose {c.name} If…</h3><CheckList items={c.whenThem} /></StaggerItem>
+          <StaggerItem className="pg-ba__col pg-ba__col--after"><h3>Choose MetaWurks If…</h3><CheckList items={c.whenUs} tone="grn" /></StaggerItem>
         </Stagger>
       </Section>
 

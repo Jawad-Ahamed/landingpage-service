@@ -20,7 +20,7 @@ export function getMenu(): MenuGroup[] {
       { label: 'Integrations', desc: `${INTEGRATIONS.length} tools through OAuth, plus MCP`, href: '/integrations', icon: 'plug' },
       { label: 'Security & data integrity', desc: 'Cited answers, approvals, never sold', href: '/security', icon: 'shield' },
       { label: 'Watch it work', desc: 'A short product walkthrough', href: '/#watch', icon: 'play' },
-      { label: 'Pricing', desc: 'From $19 a month, first month free', href: '/pricing', icon: 'receipt' },
+      { label: 'Pricing', desc: 'Free one-month trial, then from $39', href: '/pricing', icon: 'receipt' },
     ]), foot: { text: 'Bring your tool list and your worst admin chore.', link: { label: 'Book a 1:1 call', href: '/#book' } } },
     { label: 'Solutions', cols: 2, items: live([
       ...SOLUTIONS.map(s => ({ label: s.name, desc: s.answer.question.replace(/^How can an? /, '').replace(/\?$/, ''), href: `/solutions/${s.slug}`, icon: s.tag === 'acct' ? 'calc' : s.tag === 'legal' ? 'scale' : s.tag === 'health' ? 'pulse' : 'chart' })),
@@ -43,9 +43,9 @@ export type FooterCol = { title: string; links: { label: string; href: string }[
 export function getFooter(): FooterCol[] {
   const f = (links: { label: string; href: string }[]) => links.filter(l => l.href.startsWith('/#') || l.href.startsWith('mailto:') || exists(l.href));
   return [
-    { title: 'Product', links: f([{ label: 'How it works', href: '/#how' }, { label: 'Agents & skills', href: '/agents' }, { label: 'Integrations', href: '/integrations' }, { label: 'Pricing', href: '/pricing' }, { label: 'Watch it work', href: '/#watch' }]) },
+    { title: 'Product', links: f([{ label: 'How it works', href: '/#how' }, { label: 'Agents & skills', href: '/agents' }, { label: 'Integrations', href: '/integrations' }, { label: 'Pricing', href: '/pricing' }, { label: 'Private mode', href: '/#private' }, { label: 'Watch it work', href: '/#watch' }]) },
     { title: 'Solutions', links: f([...SOLUTIONS.map(s => ({ label: s.short, href: `/solutions/${s.slug}` })), ...USE_CASES.map(u => ({ label: u.name, href: `/use-cases/${u.slug}` }))]) },
     { title: 'Resources', links: f([{ label: 'Blog', href: '/blog' }, { label: 'Glossary', href: '/glossary' }, ...RESOURCES.slice(0, 3).map(r => ({ label: r.title.replace(/ for Firms$/, ''), href: `/resources/${r.slug}` }))]) },
-    { title: 'Trust & company', links: f([{ label: 'Security & data integrity', href: '/security' }, { label: 'Privacy policy', href: '/privacy' }, { label: 'Terms of service', href: '/terms' }, { label: 'Contact', href: `mailto:${SITE.email}` }, { label: 'Book a 1:1 call', href: '/#book' }]) },
+    { title: 'Trust & Company', links: f([{ label: 'Security & data integrity', href: '/security' }, { label: 'Privacy policy', href: '/privacy' }, { label: 'Terms of service', href: '/terms' }, { label: 'Contact', href: `mailto:${SITE.email}` }, { label: 'Book a 1:1 call', href: '/#book' }]) },
   ];
 }

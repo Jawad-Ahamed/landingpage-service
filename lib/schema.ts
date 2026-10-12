@@ -27,7 +27,7 @@ export const softwareApp = (): WithContext<SoftwareApplication> => ({
   operatingSystem: 'Web',
   url: SITE.url,
   description: SITE.description,
-  offers: PLANS.map(p => ({ '@type': 'Offer', name: p.name, price: p.price.toFixed(2), priceCurrency: 'USD', url: abs('/pricing') })),
+  offers: PLANS.filter(p => p.price !== null).map(p => ({ '@type': 'Offer', name: p.name, price: p.price!.toFixed(2), priceCurrency: 'USD', url: abs('/pricing') })),
 });
 
 export const faqPage = (faqs: Faq[]): WithContext<FAQPage> => ({
