@@ -8,8 +8,6 @@ RUN npm ci --no-audit --no-fund
 FROM node:22-alpine AS build
 WORKDIR /app
 ENV NEXT_TELEMETRY_DISABLED=1
-# NEXT_PUBLIC_* values are inlined at build time. One image is promoted dev -> prod,
-# so these hold for both environments.
 ARG NEXT_PUBLIC_SITE_URL=""
 ARG NEXT_PUBLIC_INDEXABLE="false"
 ENV NEXT_PUBLIC_SITE_URL=$NEXT_PUBLIC_SITE_URL \

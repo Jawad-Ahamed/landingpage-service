@@ -35,8 +35,8 @@ export const viewport: Viewport = {
 
 // 'js' hides content that the page scripts reveal. If the scripts never finish (blocked, failed),
 // drop 'js' after 4 s so the html:not(.js) fallbacks show everything.
-// Theme: a saved choice wins, otherwise follow the OS; set before first paint so there is no flash.
-const BOOT = `(function(r){r.classList.add('js');var t=null;try{t=localStorage.getItem('mw-theme');}catch(e){}if(t!=='dark'&&t!=='light'){t=window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';}r.setAttribute('data-theme',t);var m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute('content',t==='dark'?'#0B101C':'#FFFFFF');setTimeout(function(){if(!r.classList.contains('js-ready'))r.classList.remove('js');},4000);})(document.documentElement);`;
+// Theme: a saved choice wins, otherwise light; set before first paint so there is no flash.
+const BOOT = `(function(r){r.classList.add('js');var t=null;try{t=localStorage.getItem('mw-theme');}catch(e){}if(t!=='dark'&&t!=='light'){t='light';}r.setAttribute('data-theme',t);var m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute('content',t==='dark'?'#0B101C':'#FFFFFF');setTimeout(function(){if(!r.classList.contains('js-ready'))r.classList.remove('js');},4000);})(document.documentElement);`;
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (

@@ -109,6 +109,8 @@ jobs:
         run: |
           set -euo pipefail
           docker build --platform linux/amd64 \
+            --build-arg NEXT_PUBLIC_SITE_URL=https://dev.metawurks.com \
+            --build-arg NEXT_PUBLIC_INDEXABLE=false \
             -t "${{ steps.image.outputs.image_url }}:${{ steps.image.outputs.sha_tag }}" .
 
       - name: Scan image (Trivy)
