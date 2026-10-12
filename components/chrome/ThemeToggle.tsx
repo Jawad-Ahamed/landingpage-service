@@ -1,10 +1,9 @@
 'use client';
-// Light / dark switch. The <head> bootstrap applied the saved choice (or the OS setting) before first paint;
-// this keeps following the OS until the visitor picks a theme, and reveals the new theme in a circle from the button.
+// Light / dark switch. The <head> bootstrap applied the saved choice (or light) before first paint;
+// this reveals the new theme in a circle from the button.
 import { useEffect, useRef, useState } from 'react';
 
 const KEY = 'mw-theme';
-const saved = () => { try { const t = localStorage.getItem(KEY); return t === 'dark' || t === 'light' ? t : null; } catch { return null; } };
 
 function apply(t: 'dark' | 'light', persist: boolean) {
   const root = document.documentElement;
@@ -19,12 +18,7 @@ export default function ThemeToggle() {
   const [dark, setDark] = useState(false);
 
   useEffect(() => {
-    const root = document.documentElement;
-    setDark(root.getAttribute('data-theme') === 'dark');
-    const mq = window.matchMedia('(prefers-color-scheme: dark)');
-    const onSystem = (e: MediaQueryListEvent) => { if (!saved()) { apply(e.matches ? 'dark' : 'light', false); setDark(e.matches); } };
-    mq.addEventListener('change', onSystem);
-    return () => mq.removeEventListener('change', onSystem);
+    setDark(document.documentElement.getAttribute('data-theme') === 'dark');
   }, []);
 
   const toggle = () => {

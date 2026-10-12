@@ -8,7 +8,7 @@ export const SITE = {
   email: 'admin@metawurks.com',
   phone: '+1 914-265-5072',
   address: '16192 Coastal Hwy, Lewes, DE 19958',
-  appUrl: 'https://app.metawurks.com',
+  appUrl: 'https://apps.metawurks.com',
   bookingUrl: 'https://calendly.com/gtm-metawurks/30min',
   // Search engines index the site only when this is explicitly turned on (after pending claims are confirmed).
   indexable: process.env.NEXT_PUBLIC_INDEXABLE === 'true',

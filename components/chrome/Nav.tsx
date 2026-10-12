@@ -64,7 +64,7 @@ export default function Nav({ menu }: { menu: MenuGroup[] }) {
           <MegaMenu groups={menu} />
           <div className="nav__cta">
             <ThemeToggle />
-            <Link className="nav__signin" href="/#book">Sign in</Link>
+            <Link className="nav__signin" href="/#book">Try MetaWurks for free</Link>
             <Link className="btn btn--primary btn--sm" href={bookHref('nav')}>Book a 1:1 call</Link>
             <button ref={toggle} className="nav__toggle" type="button" aria-label={open ? 'Close menu' : 'Open menu'} aria-expanded={open} aria-controls="drawer" onClick={() => setOpen(o => !o)}><span /></button>
           </div>
@@ -73,7 +73,7 @@ export default function Nav({ menu }: { menu: MenuGroup[] }) {
           {menu.map(g => g.href && !g.items ? <Link key={g.label} href={g.href} onClick={() => setOpen(false)}>{g.label}</Link> : (
             <div key={g.label} className="mm-group"><b>{g.label}</b>{g.items!.map(it => <Link key={it.href + it.label} href={it.href} onClick={() => setOpen(false)}>{it.label}</Link>)}</div>
           ))}
-          <Link href="/#book" onClick={() => setOpen(false)}>Sign in</Link>
+          <Link href="/#book" onClick={() => setOpen(false)}>Try MetaWurks for free</Link>
           <Link className="btn btn--primary" href={bookHref('nav')} onClick={() => setOpen(false)}>Book a 1:1 call</Link>
         </nav>
       </header>
