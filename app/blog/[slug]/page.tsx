@@ -68,7 +68,7 @@ export default async function PostPage({ params }: Props) {
       <section className="section section--paper section--tight" aria-labelledby="nl-h">
         <div className="container grid gap-8 md:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] md:items-center">
           <Reveal><div><span className="eyebrow">The monthly brief</span><h2 className="h2" id="nl-h" style={{ marginTop: 12, fontSize: 'clamp(1.7rem, 2.6vw, 2.2rem)' }}>Get the Next Guide <span className="hl">in Your Inbox.</span></h2></div></Reveal>
-          <Reveal delay={0.08}><LeadForm kind="newsletter" cta="Subscribe" fields={[]} done="You're subscribed." /></Reveal>
+          <Reveal delay={0.08}><LeadForm kind="newsletter" cta="Subscribe" fields={[]} done="Thanks, we've received your request to join the monthly brief." /></Reveal>
         </div>
       </section>
 

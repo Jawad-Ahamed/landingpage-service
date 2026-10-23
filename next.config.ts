@@ -9,6 +9,10 @@ const securityHeaders = [
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
+  // Pin the workspace root to this project. Next otherwise picks the highest lockfile it finds, and a stray
+  // package-lock.json further up (e.g. in the home folder) made Turbopack watch that whole tree. Next always runs
+  // from this folder (npm scripts, Dockerfile WORKDIR /app), and this also sets outputFileTracingRoot.
+  turbopack: { root: process.cwd() },
   // Self-contained server bundle for the Docker image (Cloud Run).
   output: 'standalone',
   poweredByHeader: false,

@@ -32,7 +32,7 @@ Steps 2, 3 and 5 are the expensive ones. They're hunting tasks: reading through 
 
 An agent can do the preparation and leave the decisions to people:
 
-- **Read the intake and chart notes,** with patient identifiers masked from the start.
+- **Read the intake and chart notes** for the details the request needs.
 - **Pull the relevant history:** therapy notes, imaging, medications tried.
 - **Match the codes to the payer's criteria** and show which criteria are met, each with a cite to the page that proves it.
 - **Flag what's missing,** for example "Referring provider NPI missing: needs review", before anyone starts the form.
@@ -46,7 +46,7 @@ CMS's Interoperability and Prior Authorization final rule (CMS-0057-F) requires 
 
 ## Before you automate: a word on PHI
 
-Any tool that touches patient records needs to meet your HIPAA obligations, including a Business Associate Agreement where required. Ask every vendor directly. (We'll tell you plainly where MetaWurks stands: we don't claim HIPAA compliance today, and we ask practices not to process PHI until a BAA position is settled in writing. See our [security page](/security).)
+Any tool that touches patient records needs to meet your HIPAA obligations, including a Business Associate Agreement where required. Ask every vendor directly. (With MetaWurks, practices talk to us before any patient records come into the workspace, and we confirm in writing what's appropriate first. See our [security page](/security).)
 
 ## Measure it first
 

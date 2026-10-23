@@ -14,6 +14,9 @@ export const SITE = {
   indexable: process.env.NEXT_PUBLIC_INDEXABLE === 'true',
 };
 
+/** Contact address from the automation pricing sheet: shown on /services (page and footer) only. */
+export const SERVICES_EMAIL = 'message@metawurks.com';
+
 export type NavLink = { label: string; href: string };
 
 export const bookHref = (source: string) => `${SITE.bookingUrl}?utm_source=${source}`;

@@ -23,8 +23,8 @@ export const PLAN_MATRIX: { group: string; rows: { label: string; v: (string | b
   ] },
   { group: 'Workspace', rows: [
     { label: 'Chat with cited answers', v: [true, true, true, true] },
-    { label: 'Every leading AI model, plus Auto', v: [true, true, true, true] },
-    { label: 'Private mode (our own model, our own servers)', v: [true, true, true, true] },
+    { label: 'Leading AI models, plus Auto', v: [true, true, true, true] },
+    { label: 'Private mode', v: [true, true, true, true] },
     { label: 'Built-in agents (tax prep, close, matter summary)', v: [true, true, true, true] },
     { label: 'Describe your own agents', v: [true, true, true, true] },
     { label: 'Locked private projects', v: [true, true, true, true] },

@@ -36,7 +36,7 @@ export default function IndustryStack() {
             <m.div key={lane.id} className="ind-lane" initial={{ opacity: 0, y: 22 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '0px 0px -10% 0px' }} transition={{ duration: 0.6, ease: EASE_EXPO, delay: li * 0.06 }}>
               <div className="mb-4 flex items-center justify-between gap-3">
                 <span className={`tag tag--${lane.tag}`}>{lane.label}</span>
-                <span className="text-[12px] font-semibold uppercase tracking-[.07em] text-faint">Via MCP†</span>
+                <span className="text-[12px] font-semibold uppercase tracking-[.07em] text-faint">Via MCP</span>
               </div>
               <ul className="grid grid-cols-2 gap-2">
                 {lane.tools.map(t => (
@@ -68,7 +68,7 @@ export default function IndustryStack() {
             <Link href="/integrations/mcp" className="chip"><img className="app-ico" src="/assets/logos/mcp.svg" alt="" />Custom MCP connector</Link>
           </div>
         </m.div>
-        <p className="pg-claims text-center">† Industry tools connect through MCP: if your platform offers an MCP connection, we add it within 24–48 hours. Which tools connect for your firm is confirmed on a 1:1 call. Product names belong to their owners; no partnership is implied.</p>
+        <p className="pg-claims text-center">Industry tools connect through MCP: if your platform offers an MCP connection, we add it within 24–48 hours. Which tools connect for your firm is confirmed on a 1:1 call. Product names belong to their owners; no partnership is implied.</p>
       </div>
     </section>
   );

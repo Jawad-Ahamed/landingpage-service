@@ -1,0 +1,28 @@
+SAMPLE DOCUMENT - FICTIONAL DATA ONLY
+Used to test the MetaWurks workspace preview. Every name, address and figure below is invented.
+
+ENGAGEMENT LETTER
+
+Firm:    Brightwater & Lane CPAs (fictional)
+Client:  Harbor & Pine LLC (fictional)
+Contact: Jordan Example, Managing Member
+Address: 100 Sample Street, Exampleville, ZZ 00000
+Date:    October 1, 2026
+
+Scope of services
+We will prepare the 2025 federal and state income tax returns for Harbor & Pine LLC
+and the related Schedule K-1s for its members.
+
+Fees
+Our fee for these services is $4,800, billed in two installments of $2,400.
+Additional consulting is billed at $210 per hour.
+
+Client responsibilities
+The client will provide complete trial balances, bank statements and contractor
+payment records by February 15, 2026.
+
+Unusual terms
+Section 7.2: either party may end this engagement with 10 days' written notice.
+Section 9.1: records are kept for seven years after the engagement ends.
+
+Signed (sample only): ____________________

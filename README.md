@@ -5,7 +5,8 @@
 - **Local:** `npm install`, then `npm run dev` (http://localhost:3000). `npm run check` runs the type check and the claims check.
 - **Container:** `Dockerfile` builds a Next.js standalone server on port 8080 with a `/health` probe. CI (`.github/workflows/validate.yml`) type-checks, builds, smoke-tests and Trivy-scans it; `dev.yml` / `prod.yml` push to Artifact Registry and deploy to Cloud Run.
 - **Build-time settings:** `NEXT_PUBLIC_SITE_URL` (canonical origin) and `NEXT_PUBLIC_INDEXABLE` are baked in when the image is built (`--build-arg`). One image is promoted dev → prod, so they apply to both.
-- **Runtime settings:** `LEAD_SINK=webhook` + `LEAD_WEBHOOK_URL` send form leads to a webhook; the default logs them to the server log.
+- **Runtime settings:** `LEAD_SINK=webhook` + `LEAD_WEBHOOK_URL` send form leads to a webhook; `LEAD_SINK=console` only logs them to the server log. Unset, development logs to the console, but production has no sink: forms tell visitors their message was not sent (and the server logs `[lead] no delivery configured`) instead of showing a false success.
+- **ROI results email:** the calculator's "Email me these results" sends the visitor their results through the Gmail API (`lib/leads/mail.ts`). Set `LEAD_MAIL_SENDER` (the Workspace mailbox to send as) and `LEAD_MAILER_SERVICE_ACCOUNT` (a service account with domain-wide delegation for `gmail.send`, which the Cloud Run runtime service account may sign JWTs for). Without them the form says the email could not be sent and the server logs `[roi] results email not sent`. For local tests only, `LEAD_MAIL_TRANSPORT=mock` + `LEAD_MAIL_MOCK_URL` (loopback addresses only) posts each message to a mock receiver.
 - `legacy/` holds the old static page for reference; it is not served.
 
 

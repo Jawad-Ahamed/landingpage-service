@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { Lockup } from './Nav';
 import { SITE } from '@/lib/site';
 import Year from './Year';
+import FooterEmail from './FooterEmail';
 import type { FooterCol } from '@/lib/menu';
 
 export default function Footer({ cols }: { cols: FooterCol[] }) {
@@ -12,7 +13,7 @@ export default function Footer({ cols }: { cols: FooterCol[] }) {
           <div className="footer__about">
             <Link className="brand" href="/" aria-label="MetaWurks home"><Lockup size={58} /></Link>
             <p>Less admin. More judgment.</p>
-            <p style={{ marginTop: 10 }}>{SITE.address}<br />{SITE.phone} · <a href={`mailto:${SITE.email}`}>{SITE.email}</a></p>
+            <p style={{ marginTop: 10 }}>{SITE.address}<br />{SITE.phone} · <FooterEmail /></p>
           </div>
           {cols.map(c => (
             <div key={c.title}>
@@ -22,8 +23,7 @@ export default function Footer({ cols }: { cols: FooterCol[] }) {
           ))}
         </div>
         <div className="footer__base">
-          <span>© <Year /> MetaWurks · X · Instagram · LinkedIn</span>
-          <span className="mock-note">Concept mock for internal review · Claims listed under Pricing and Security are pending confirmation · All names and figures in demos are sample data</span>
+          <span>© <Year /> MetaWurks</span>
         </div>
       </div>
     </footer>

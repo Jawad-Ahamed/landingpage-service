@@ -13,7 +13,7 @@ const PROVIDERS: { id: string; company: string; model: string; private?: boolean
   { id: 'google', company: 'Google', model: 'Gemini' },
   { id: 'xai', company: 'xAI', model: 'Grok' },
   { id: 'deepseek', company: 'DeepSeek', model: 'DeepSeek' },
-  { id: 'private', company: 'Our own servers', model: 'Private LLM', private: true },
+  { id: 'private', company: 'MetaWurks', model: 'Private LLM', private: true },
 ];
 const TASKS = [
   { v: 'Legal', text: 'Summarize a 300-page deposition with cites', to: 'anthropic' },
@@ -21,7 +21,7 @@ const TASKS = [
   { v: 'Healthcare', text: 'Extract criteria from a scanned payer policy', to: 'google' },
   { v: 'Everyday', text: 'Draft a quick client reply', to: 'deepseek' },
   { v: 'Research', text: 'Summarize this week\'s rule changes from the web', to: 'xai' },
-  { v: 'Private mode', text: 'Review a client\'s engagement letter, without it leaving MetaWurks', to: 'private' },
+  { v: 'Private mode', text: 'Review a client\'s engagement letter in Private mode', to: 'private' },
 ];
 const ROW = 64; // px between provider rows (matches CSS)
 
@@ -44,14 +44,14 @@ export default function ModelRouter() {
       <div className="container grid items-center gap-12 lg:grid-cols-[minmax(0,.9fr)_minmax(0,1.1fr)] lg:gap-16">
         <div className="flex flex-col gap-5">
           <span className="eyebrow">Model choice</span>
-          <h2 className="h2" id="models-h">Every Leading AI Model. <span className="hl">Plus Our Own Private LLM.</span></h2>
-          <p className="lede" data-read>Use GPT, Claude, Gemini, Grok and DeepSeek from one workspace.† Leave it on Auto and each task goes to the model that suits it. For the sensitive work, switch to Private mode and our own model answers, on our own servers.</p>
+          <h2 className="h2" id="models-h">Leading AI Models, One Workspace. <span className="hl">Plus Our Own Private LLM.</span></h2>
+          <p className="lede" data-read>Use leading AI models from one workspace. Leave it on Auto and each task goes to the model that suits it. For the sensitive work, switch to Private mode, which is designed to use our own model instead.</p>
           <ul className="pg-list">
             <li><svg aria-hidden="true"><use href="#i-check" /></svg><span data-read>Switch models per conversation, without separate accounts or logins.</span></li>
             <li><svg aria-hidden="true"><use href="#i-check" /></svg><span data-read>The same rules whichever model answers: cited sources, drafts that wait for approval, data never sold.</span></li>
-            <li><svg aria-hidden="true"><use href="#i-lock" /></svg><span data-read><b>Private mode:</b> nothing you type or attach is sent to an outside AI provider. <a href="#private">See how it works</a>.</span></li>
+            <li><svg aria-hidden="true"><use href="#i-lock" /></svg><span data-read><b>Private mode:</b> designed so what you type or attach isn&apos;t sent to an outside AI provider. <a href="#private">See how it works</a>.</span></li>
           </ul>
-          <p className="pg-claims" style={{ marginTop: 0 }}>† The current provider list and each provider&apos;s data terms are pending confirmation before launch. Routing examples are illustrative.</p>
+          <p className="pg-claims" style={{ marginTop: 0 }}>Example routing. Auto chooses the model for each task.</p>
         </div>
 
         <div ref={ref} className="mr-panel">

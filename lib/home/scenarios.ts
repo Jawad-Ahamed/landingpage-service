@@ -31,9 +31,9 @@ export const ASK_SCENARIOS: AskScenario[] = [
   },
   {
     q: "Does this patient's chart meet the payer's criteria for a lumbar MRI (CPT 72148)?",
-    files: [{ t: 'PDF', c: '#B42318', n: 'Intake_••••4471.pdf · PHI masked' }, { t: 'PDF', c: '#B42318', n: 'PT_Progress_Notes.pdf' }, { t: 'PDF', c: '#B42318', n: 'Payer_Lumbar_MRI_Policy.pdf' }],
+    files: [{ t: 'PDF', c: '#B42318', n: 'Intake_SamplePatient.pdf' }, { t: 'PDF', c: '#B42318', n: 'PT_Progress_Notes.pdf' }, { t: 'PDF', c: '#B42318', n: 'Payer_Lumbar_MRI_Policy.pdf' }],
     searching: 'Checking chart notes against payer policy…',
-    done: 'Answered from 3 sources · patient details masked',
+    done: 'Answered from 3 sources',
     a: '<span class="num">Likely yes.</span> The notes show <span class="num">8 weeks</span> of physical therapy without relief, and the payer requires at least 6.',
     viz: 'queue',
     queue: [
@@ -41,6 +41,6 @@ export const ASK_SCENARIOS: AskScenario[] = [
       { l: 'Radiculopathy documented · ICD-10 M54.16', p: '<span class="pill pill--grn">Met</span>' },
       { l: 'Referring provider NPI', p: '<span class="pill pill--amb">Needs review</span>' }
     ],
-    cites: ['PT_Progress_Notes · p.2', 'Payer_Policy · §4.1', 'Intake · PHI masked']
+    cites: ['PT_Progress_Notes · p.2', 'Payer_Policy · §4.1', 'Intake · p.1']
   }
 ];

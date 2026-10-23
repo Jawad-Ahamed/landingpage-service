@@ -15,7 +15,7 @@ const POOL: Ev[] = [
   { v: 'health', agent: 'Prior Auth', text: 'Checked payer criteria for lumbar MRI (CPT 72148)', pill: 'Criteria met', tone: 'grn' },
   { v: 'legal', agent: 'Matter Summary', text: 'Exhibit C cited in complaint, not found in folder', pill: 'Needs review', tone: 'amb' },
   { v: 'acct', agent: 'Month-end close', text: 'Reconciled 214 Stripe payouts to Xero deposits', pill: '214 matched', tone: 'grn' },
-  { v: 'health', agent: 'Intake', text: 'Patient intake read with identifiers masked', pill: 'PHI masked', tone: 'grn' },
+  { v: 'health', agent: 'Intake', text: 'Patient intake read for a prior-auth packet', pill: 'Needs sign-off', tone: 'cob' },
   { v: 'acct', agent: 'Collections', text: 'Drafted 5 overdue reminders in Gmail', pill: 'Not sent', tone: 'cob' },
   { v: 'legal', agent: 'Deadlines', text: 'Mapped 9 key dates, Mar 2023 → Jun 2025, each cited', pill: 'Cited', tone: 'cob' },
   { v: 'health', agent: 'Prior Auth', text: 'Referring provider NPI missing from the packet', pill: 'Needs review', tone: 'amb' },
@@ -70,7 +70,7 @@ export default function ActivityFeed() {
 
         <div ref={ref} className="act-panel" aria-label="Sample agent activity">
           <div className="flex flex-wrap items-center justify-between gap-3 border-b border-rule-soft px-5 py-4">
-            <span className="flex items-center gap-2 text-[14px] font-semibold"><i className="act-live" aria-hidden="true" />Agent activity <span className="font-normal text-faint">· sample data</span></span>
+            <span className="flex items-center gap-2 text-[14px] font-semibold"><i className="act-live" aria-hidden="true" />Agent activity <span className="font-normal text-faint">· example</span></span>
             <div className="flex gap-1.5" role="group" aria-label="Filter activity">
               {(['all', 'legal', 'acct', 'health'] as const).map(f => (
                 <button key={f} type="button" className="pg-filter" style={{ height: 30, padding: '0 12px', fontSize: 13 }} aria-pressed={filter === f} onClick={() => setFilter(f)}>{f === 'all' ? 'All' : LABEL[f]}</button>

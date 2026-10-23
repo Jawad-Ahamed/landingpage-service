@@ -44,7 +44,8 @@ export default async function IntegrationPage({ params }: Props) {
       </Section>
 
       <Section paper label={`What MetaWurks does with ${i.name}`}>
-        <SectionHead eyebrow="Once connected" title={`What MetaWurks can do with ${i.name}†`} />
+        <SectionHead eyebrow="Once connected" title={`What MetaWurks can do with ${i.name}`}
+          lede={`What's available depends on the permissions you grant when you connect ${i.name}. We'll confirm exactly what it covers for your firm on a 1:1 call.`} />
         <Stagger className="pg-grid pg-grid--3">
           <StaggerItem className="pg-card"><h3><Icon name="file" />What It Reads</h3><CheckList items={i.reads} /></StaggerItem>
           <StaggerItem className="pg-card"><h3><Icon name="bolt" />What Agents Do</h3><CheckList items={i.does} /></StaggerItem>

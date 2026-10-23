@@ -192,7 +192,7 @@ export const AGENTS: Agent[] = [
     kind: 'Example',
     area: 'Healthcare',
     icon: 'pulse',
-    blurb: 'Reads intake and chart notes with identifiers masked, then assembles a prior-auth packet for clinician sign-off.',
+    blurb: 'Reads intake and chart notes, then assembles a prior-auth packet for clinician sign-off.',
     answer: {
       question: 'What does a prior authorization agent do in MetaWurks?',
       answer: 'A prior authorization agent reads intake and chart notes, matches the CPT and ICD-10 codes against the payer\'s criteria, assembles the packet and flags anything missing, such as a referring provider NPI. A clinician reviews and signs off; talk to us before processing PHI.',
@@ -203,7 +203,7 @@ export const AGENTS: Agent[] = [
     run: {
       title: 'Intake & Prior Auth Agent', app: 'Drive', done: 'Packet ready for clinician review',
       steps: [
-        { label: 'Patient intake read', pill: { text: 'PHI masked', tone: 'grn' } },
+        { label: 'Patient intake read' },
         { label: 'Pulled PT notes and imaging history' },
         { label: 'Matched CPT 72148 to ICD-10 M54.16', pill: { text: 'MRI lumbar', tone: 'gray' } },
         { label: 'Checked payer criteria: 6+ weeks of conservative care', pill: { text: 'Met', tone: 'grn' } },
@@ -212,7 +212,7 @@ export const AGENTS: Agent[] = [
     },
     reviews: ['The packet before submission', 'Clinical judgment calls', 'Anything flagged missing'],
     faqs: [
-      { q: 'Can we use this with patient information today?', a: 'Talk to us before uploading patient records. We don\'t claim HIPAA compliance today and will state our BAA position plainly on a 1:1 call. Don\'t process PHI until that is settled in writing.' },
+      { q: 'Can we use this with patient information today?', a: 'Talk to us before uploading patient records. We\'ll go through your practice\'s requirements on a 1:1 call and confirm in writing what\'s appropriate before any patient health information is processed.' },
     ],
   },
 ];

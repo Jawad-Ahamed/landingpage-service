@@ -1,7 +1,8 @@
 // JSON-LD builders (schema.org). Only facts we can stand behind: no ratings, no review counts.
-import type { Article, BreadcrumbList, DefinedTerm, FAQPage, HowTo, Organization, SoftwareApplication, WithContext } from 'schema-dts';
+import type { Article, BreadcrumbList, DefinedTerm, FAQPage, HowTo, Organization, Service, SoftwareApplication, WithContext } from 'schema-dts';
 import type { Faq } from '@/content/data/types';
 import { PLANS } from '@/content/data/pricing';
+import { PACKAGES } from '@/content/data/services';
 import { SITE } from './site';
 
 const abs = (p: string) => (p.startsWith('http') ? p : `${SITE.url}${p}`);
@@ -28,6 +29,27 @@ export const softwareApp = (): WithContext<SoftwareApplication> => ({
   url: SITE.url,
   description: SITE.description,
   offers: PLANS.filter(p => p.price !== null).map(p => ({ '@type': 'Offer', name: p.name, price: p.price!.toFixed(2), priceCurrency: 'USD', url: abs('/pricing') })),
+});
+
+// Package prices are ranges ("$300–400") or floors ("$1,000+"), so offers carry a min/max price specification.
+const priceRange = (s: string) => s.match(/[\d,]+/g)!.map(n => Number(n.replace(/,/g, '')));
+
+export const service = (): WithContext<Service> => ({
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  name: 'Custom automation services',
+  serviceType: 'Workflow automation',
+  description: 'Custom workflow automations for firms and small businesses, designed around an existing process and built on the client\'s own accounts, with AI steps where they help. Fixed setup price, paid at go-live.',
+  url: abs('/services'),
+  provider: { '@type': 'Organization', name: SITE.name, url: SITE.url },
+  areaServed: { '@type': 'Country', name: 'US' },
+  offers: PACKAGES.map(p => {
+    const [min, max] = priceRange(p.price);
+    return {
+      '@type': 'Offer', name: p.name, description: p.covers, url: abs(`/services#pkg-${p.id}`),
+      priceSpecification: { '@type': 'PriceSpecification', priceCurrency: 'USD', minPrice: min, ...(max ? { maxPrice: max } : {}) },
+    };
+  }),
 });
 
 export const faqPage = (faqs: Faq[]): WithContext<FAQPage> => ({

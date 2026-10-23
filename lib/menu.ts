@@ -5,7 +5,7 @@ import { COMPARE } from '@/content/data/compare';
 import { RESOURCES } from '@/content/data/resources';
 import { INTEGRATIONS } from '@/content/data/integrations';
 import { exists } from './routes';
-import { SITE, bookHref } from './site';
+import { bookHref } from './site';
 
 export type MenuItem = { label: string; desc?: string; href: string; icon?: string; img?: string };
 export type MenuGroup = { label: string; href?: string; items?: MenuItem[]; cols?: number; foot?: { text: string; link: MenuItem } };
@@ -46,6 +46,6 @@ export function getFooter(): FooterCol[] {
     { title: 'Product', links: f([{ label: 'How it works', href: '/#how' }, { label: 'Agents & skills', href: '/agents' }, { label: 'Integrations', href: '/integrations' }, { label: 'Pricing', href: '/pricing' }, { label: 'Private mode', href: '/#private' }, { label: 'Watch it work', href: '/#watch' }]) },
     { title: 'Solutions', links: f([...SOLUTIONS.map(s => ({ label: s.short, href: `/solutions/${s.slug}` })), ...USE_CASES.map(u => ({ label: u.name, href: `/use-cases/${u.slug}` }))]) },
     { title: 'Resources', links: f([{ label: 'Blog', href: '/blog' }, { label: 'Glossary', href: '/glossary' }, ...RESOURCES.slice(0, 3).map(r => ({ label: r.title.replace(/ for Firms$/, ''), href: `/resources/${r.slug}` }))]) },
-    { title: 'Trust & Company', links: f([{ label: 'Security & data integrity', href: '/security' }, { label: 'Privacy policy', href: '/privacy' }, { label: 'Terms of service', href: '/terms' }, { label: 'Contact', href: `mailto:${SITE.email}` }, { label: 'Book a 1:1 call', href: bookHref('footer') }]) },
+    { title: 'Trust & Company', links: f([{ label: 'About', href: '/about' }, { label: 'Automation services', href: '/services' }, { label: 'Contact', href: '/contact' }, { label: 'Security & data integrity', href: '/security' }, { label: 'Privacy policy', href: '/privacy-policy' }, { label: 'Terms of service', href: '/terms-of-service' }, { label: 'Book a 1:1 call', href: bookHref('footer') }]) },
   ];
 }

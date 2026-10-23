@@ -1,5 +1,6 @@
 // Claims registry. Every product promise that is not yet confirmed in writing lives here as 'pending':
-// pages that rely on one show a † and list it in a "Pending confirmation" note. Before launch, run
+// pages register the claims they rely on through <ClaimNotes> (it renders nothing; pending claims are kept off the
+// page or reworded instead of being footnoted). Before launch, run
 // `CLAIMS_MODE=launch npm run build` — the build fails while any page still uses a pending claim.
 // 'blocked' claims must never be made (scripts/check-claims.mjs also greps for their phrasing).
 
@@ -25,7 +26,9 @@ export const CLAIMS: Claim[] = [
   { id: 'industry-connectors', text: 'Industry software connects through Custom MCP connectors or synced exports.', status: 'pending', note: 'which industry tools (Clio, Epic, TaxDome…) connect today, and how' },
   { id: 'model-providers', text: 'Six AI model providers, chosen per task by Auto.', status: 'pending', note: 'the current list of model providers behind Auto' },
   { id: 'mcp-custom', text: 'Any MCP-enabled platform can be added within 24–48 hours.', status: 'confirmed', note: 'MCP onboarding turnaround' },
-  { id: 'private-mode', text: 'Private mode runs on MetaWurks\' own model and servers; nothing is sent to an outside AI provider.', status: 'confirmed', note: 'Private mode data path' },
+  { id: 'private-mode', text: 'Private mode runs on MetaWurks\' own model and servers; nothing is sent to an outside AI provider.', status: 'pending', note: 'engineering sign-off on the Private mode data path (model hosting, no outside-provider calls, storage and logging, server-side enforcement); no app source was available to verify it (docs/privacy-policy-audit.md, claim 16)' },
+  { id: 'legal-privacy', text: 'The privacy policy is final and reviewed by counsel.', status: 'pending', note: 'counsel review of the privacy policy draft (operating entity, retention periods, rights process, effective date)' },
+  { id: 'legal-terms', text: 'The terms of service are final and reviewed by counsel.', status: 'pending', note: 'counsel review of the terms of service draft (operating entity, governing law, billing and refund terms, effective date)' },
   { id: 'baa', text: 'MetaWurks signs a Business Associate Agreement.', status: 'blocked', note: 'BAA position is not settled; never claim it' },
   { id: 'hipaa', text: 'HIPAA compliant.', status: 'blocked', note: 'no HIPAA compliance claim until audited' },
   { id: 'soc2', text: 'SOC 2 certified.', status: 'blocked', note: 'no SOC 2 claim until a report exists' },

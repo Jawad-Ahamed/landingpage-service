@@ -7,6 +7,8 @@ import IndustryStack from '@/components/home/IndustryStack';
 import ActivityFeed from '@/components/home/ActivityFeed';
 import ModelRouter from '@/components/home/ModelRouter';
 import PrivateMode from '@/components/home/PrivateMode';
+import JsonLd from '@/components/seo/JsonLd';
+import { faqPage } from '@/lib/schema';
 
 // The home page markup is the original landing page, served as static HTML (fully crawlable).
 // Each top-level <section> is rendered as a real React element (so `main > .section` styling still applies),
@@ -27,6 +29,11 @@ const INSERT_AFTER: Record<string, React.ReactNode> = {
 };
 const OMIT = new Set(['outcome']);   // its before/after repeated the problem section
 
+// The FAQ in the static markup above, also published as FAQPage structured data for search engines and AI assistants.
+const decode = (s: string) => s.replace(/<[^>]+>/g, '').replace(/&amp;/g, '&').replace(/&(apos|#39);/g, "'").replace(/&quot;/g, '"').replace(/&nbsp;/g, ' ').replace(/\s+/g, ' ').trim();
+const HOME_FAQS = [...html.matchAll(/<details class="qa"><summary>([\s\S]*?)<i[^>]*><\/i><\/summary><div class="qa__a"><div>([\s\S]*?)<\/div><\/div><\/details>/g)]
+  .map(([, q, a]) => ({ q: decode(q), a: decode(a) }));
+
 export default function HomePage() {
   return (
     <>
@@ -39,6 +46,7 @@ export default function HomePage() {
         ))}
       </main>
       <HomeEffects />
+      {HOME_FAQS.length > 0 && <JsonLd data={faqPage(HOME_FAQS)} />}
     </>
   );
 }

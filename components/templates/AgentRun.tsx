@@ -9,7 +9,7 @@ import { titleCase } from '@/lib/titleCase';
 
 const STEP_MS = 720, HOLD_MS = 4200;
 
-export default function AgentRun({ run, asks, apps = [], note = 'Sample run · fictional data' }: { run: Run; asks?: [string, string][]; apps?: string[]; note?: string }) {
+export default function AgentRun({ run, asks, apps = [], note = 'Example run' }: { run: Run; asks?: [string, string][]; apps?: string[]; note?: string }) {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { amount: 0.35 });
   const [step, setStep] = useState(run.steps.length);   // server + no-JS: the finished run

@@ -53,11 +53,13 @@ export function PageHero({ trail, eyebrow, headline, lede, ctas = true, primary,
   const p = primary || { label: 'Book a 1:1 call', href: bookHref('hero') };
   const copy = (
     <>
-      <Breadcrumbs trail={trail} />
+      {/* The {' '} text nodes are invisible here (flex column, block lines) but keep extracted text, the H1's
+          accessible name and search snippets from running words together ("PrivacyPolicy"). */}
+      <Breadcrumbs trail={trail} />{' '}
       {logo && <span className="pg-hero__logo"><img src={logo.src} alt={logo.alt} width={42} height={42} /></span>}
-      {eyebrow && <span className="eyebrow">{eyebrow}</span>}
+      {eyebrow && <span className="eyebrow">{eyebrow}</span>}{' '}
       <h1 className="pg-h1" id="pg-h1">
-        <HeroLine>{titlePair(headline[0], headline[1])[0]}</HeroLine>
+        <HeroLine>{titlePair(headline[0], headline[1])[0]}</HeroLine>{' '}
         <HeroLine className="hl" delay={0.06}>{titlePair(headline[0], headline[1])[1]}</HeroLine>
       </h1>
       <Reveal delay={0.1} y={12}><p className="lede">{lede}</p></Reveal>
@@ -183,11 +185,12 @@ export function FaqSection({ faqs, title = 'Questions firms ask', hl, eyebrow = 
   );
 }
 
-/* ---------- Pending-claims footnote ---------- */
+/* ---------- Claims a page relies on ---------- */
+// Renders nothing (the visible "† Pending confirmation" footnote was removed on 2026-10-22). It still registers the
+// page's claim ids, so CLAIMS_MODE=launch builds keep failing while any of them is pending in content/data/claims.ts.
 export function ClaimNotes({ ids }: { ids?: string[] }) {
-  const notes = pendingNotes(ids);
-  if (!notes.length) return null;
-  return <p className="pg-claims"><b>† Pending confirmation before launch:</b> {notes.join('; ')}.</p>;
+  pendingNotes(ids);
+  return null;
 }
 
 /* ---------- Final call to action (the ink panel from the home page) ---------- */

@@ -6,7 +6,7 @@ const UPDATED = '2026-10-06';
 const BASE_CLAIMS = ['oauth', 'revoke', 'integration-depth'];
 
 const connectFaqs = (name: string, vendor: string): Faq[] => [
-  { q: `How do I connect ${name} to MetaWurks?`, a: `Open Integrations in MetaWurks, choose ${name} and sign in on ${vendor}'s own screen. MetaWurks receives an encrypted access token, never your password. It takes about a minute and needs no IT team.` },
+  { q: `How do I connect ${name} to MetaWurks?`, a: `Open Integrations in MetaWurks, choose ${name} and sign in on ${vendor}'s own screen. MetaWurks receives an encrypted access token, never your password. It takes about a minute.` },
   { q: `Can I disconnect ${name} later?`, a: `Yes, anytime. Disconnecting ${name} revokes MetaWurks' access token, and agents stop reading it immediately.` },
 ];
 

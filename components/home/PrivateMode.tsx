@@ -47,8 +47,8 @@ export default function PrivateMode() {
       <div className="container">
         <div className="section-head section-head--center">
           <span className="eyebrow pm-eyebrow"><em>New</em>Private mode</span>
-          <h2 className="h2" id="pm-h">Incognito for Your Firm&apos;s AI. <span className="hl">Nothing Goes to an Outside Provider.</span></h2>
-          <p className="lede" data-read>One click switches any conversation to Private mode. MetaWurks then answers with our own model, running on our own servers. What you type and attach is never sent to an outside AI provider.</p>
+          <h2 className="h2" id="pm-h">Incognito for Your Firm&apos;s AI. <span className="hl">Built for Your Most Sensitive Work.</span></h2>
+          <p className="lede" data-read>One click switches any conversation to Private mode, which is designed to answer with our own model, running on our own servers, instead of sending what you type and attach to an outside AI provider.</p>
         </div>
 
         <div className="pm-switch" role="group" aria-label="Show the workspace in">
@@ -83,7 +83,7 @@ export default function PrivateMode() {
                   <m.div key="priv" className="pm-hello" initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} transition={{ duration: 0.5, ease: EASE_EXPO }}>
                     <span className="pm-orb"><Incognito /></span>
                     <h3>Welcome to Private mode</h3>
-                    <p>Your chat stays on our own servers. Nothing goes to an outside provider.</p>
+                    <p>For your firm&apos;s most sensitive work.</p>
                   </m.div>
                 ) : (
                   <m.div key="pub" className="pm-hello" initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} transition={{ duration: 0.5, ease: EASE_EXPO }}>
@@ -101,7 +101,7 @@ export default function PrivateMode() {
                   {!isPrivate && <><span className="pm-chip"><svg><use href="#i-file" /></svg>Data Library</span><span className="pm-chip"><svg><use href="#i-plug" /></svg>Integrations</span></>}
                   <span className="pm-grow" />
                   {isPrivate
-                    ? <span className="pm-chip pm-chip--priv"><Incognito />Private LLM · our servers</span>
+                    ? <span className="pm-chip pm-chip--priv"><Incognito />Private LLM</span>
                     : <><span className="pm-chip"><svg><use href="#i-globe" /></svg>Web</span><span className="pm-chip">Auto<svg><use href="#i-chev" /></svg></span></>}
                   <span className="pm-round pm-round--mic"><svg><use href="#i-mic" /></svg></span>
                   <span className="pm-round"><svg><use href="#i-send" /></svg></span>
@@ -120,7 +120,7 @@ export default function PrivateMode() {
                 <m.div className="pm-modal" aria-hidden="true" initial={{ opacity: 0, y: 16, scale: 0.97 }} animate={{ opacity: 1, y: 0, scale: 1 }} exit={{ opacity: 0, scale: 0.98 }} transition={{ duration: 0.4, ease: EASE_EXPO }}>
                   <span className="pm-modal__ico"><Incognito /></span>
                   <b>Switch to Private mode?</b>
-                  <p>Private mode answers with our own model, running on our servers. What you type and attach is never sent to an outside AI provider.</p>
+                  <p>Private mode is designed to answer with our own model, on our servers, instead of an outside AI provider.</p>
                   <div><span className="pm-btn-text">Stay in public</span><span className={`pm-btn${phase === 'confirm' ? ' is-press' : ''}`}>Switch to private</span></div>
                 </m.div>
               )}
@@ -132,7 +132,7 @@ export default function PrivateMode() {
 
         <ul className="pm-points">
           <li><span><Incognito /></span><div><b>One click, any conversation</b><p data-read>Flip to Private mode from the top bar, like an incognito window. Flip back when you want the outside models again.</p></div></li>
-          <li><span><svg aria-hidden="true"><use href="#i-cloud" /></svg></span><div><b>Our model, our servers</b><p data-read>Answers come from the MetaWurks Private LLM, hosted by us. No outside AI provider sees the prompt or the files.</p></div></li>
+          <li><span><svg aria-hidden="true"><use href="#i-cloud" /></svg></span><div><b>Our own model, by design</b><p data-read>Private mode is designed to answer with the MetaWurks Private LLM, hosted by us, instead of an outside AI provider.</p></div></li>
           <li><span><svg aria-hidden="true"><use href="#i-scale" /></svg></span><div><b>Made for the sensitive work</b><p data-read>Privileged matters, client tax files and engagement letters can stay with the one vendor you already vetted.</p></div></li>
         </ul>
       </div>

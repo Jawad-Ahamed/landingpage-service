@@ -54,4 +54,4 @@ General tools are great for general work. For tax prep, matter summaries or prio
 
 ## Turn this into a checklist
 
-We've expanded these into 25 questions, with what a good answer sounds like, in the free [AI Vendor Due-Diligence Checklist](/resources/ai-vendor-due-diligence-checklist). And for the record, here is [how MetaWurks answers them](/security), including what we don't claim yet.
+We've expanded these into 25 questions, with what a good answer sounds like, in the free [AI Vendor Due-Diligence Checklist](/resources/ai-vendor-due-diligence-checklist). And for the record, here is [how MetaWurks protects client data](/security).

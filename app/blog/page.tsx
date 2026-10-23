@@ -74,7 +74,7 @@ export default function BlogIndex() {
                 <h2 className="h2" id="nl-h" style={{ margin: '14px 0 0', maxWidth: '16ch' }}>One Useful Email a Month. <span className="final__hl">No Fluff.</span></h2>
                 <p style={{ margin: '14px 0 0' }}>New guides, rule changes worth knowing and one workflow you can hand off, for firm owners who read on the train.</p>
               </div>
-              <div className="pg-final"><LeadForm kind="newsletter" cta="Subscribe" fields={[]} done="You're subscribed. The next brief lands at the start of the month." /></div>
+              <div className="pg-final"><LeadForm kind="newsletter" cta="Subscribe" fields={[]} done="Thanks, we've received your request to join the monthly brief." /></div>
             </div>
           </Reveal>
         </div>

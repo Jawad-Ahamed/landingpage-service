@@ -32,7 +32,7 @@ export const SOLUTIONS: Solution[] = [
     integrations: ['quickbooks', 'xero', 'gmail', 'outlook', 'google-drive', 'stripe', 'double'],
     faqs: [
       { q: 'Do we have to replace QuickBooks, Xero or our tax software?', a: 'No. MetaWurks works on top of the tools you already use. Connecting one is a sign-in, not a migration, and filing stays in your tax software.' },
-      { q: 'Is client data used to train AI models?', a: 'We never sell your data. Whether a model provider can learn from your data depends on its terms; we\'re confirming those terms in writing for every provider behind Auto and will walk you through them on your call.' },
+      { q: 'Is client data used to train AI models?', a: 'We never sell your data. Outside Private mode, AI model providers process requests under their own data-use terms, and we\'ll walk you through the terms for the providers behind Auto on your call. For confidential files, Private mode is designed to keep requests with MetaWurks.' },
       { q: 'What if the AI gets a number wrong?', a: 'It can. That\'s why every answer cites the report or document it came from and agents flag gaps as "Needs review". Treat the output as prep for your professional judgment.' },
       { q: 'How long does setup take?', a: 'Connecting QuickBooks, Gmail and Drive takes minutes through each app\'s own sign-in. Book a 1:1 call and we\'ll set up your first agent on your own workflow.' },
     ],

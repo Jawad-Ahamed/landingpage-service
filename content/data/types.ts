@@ -25,7 +25,7 @@ export type Integration = {
   agents: string[];             // agent slugs
   useCases: string[];           // use-case slugs
   faqs: Faq[];
-  claims?: string[];            // claim ids this page relies on (pending ones get a † note)
+  claims?: string[];            // claim ids this page relies on (pending ones fail a launch build)
 };
 
 export type Agent = {
